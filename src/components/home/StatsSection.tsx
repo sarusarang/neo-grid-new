@@ -1,0 +1,81 @@
+import { useRef, useEffect } from "react"
+import { motion, useInView } from "framer-motion"
+
+const stats = [
+  { label: "Megawatts Installed", value: 125, suffix: "MW" },
+  { label: "Carbon Offset", value: 50, suffix: "k Tons" },
+  { label: "Happy Customers", value: 10, suffix: "k+" },
+]
+
+function Counter({ from, to, suffix }: { from: number; to: number; suffix: string }) {
+  const nodeRef = useRef<HTMLHeadingElement>(null)
+  const inView = useInView(nodeRef, { once: true, margin: "-100px" })
+
+  useEffect(() => {
+    if (!inView || !nodeRef.current) return
+    const controls = animate(from, to, {
+      duration: 2,
+      ease: "easeOut",
+      onUpdate(value) {
+        if (nodeRef.current) {
+          nodeRef.current.textContent = `${Math.round(value)}${suffix}`
+        }
+      },
+    })
+    return () => controls.stop()
+  }, [from, to, inView, suffix])
+
+  return <h3 ref={nodeRef} className="text-5xl md:text-7xl font-black text-white mb-2 tracking-tighter" />
+}
+
+// Simple local animate function since framer-motion's animate can be tricky to import correctly in some versions
+function animate(from: number, to: number, options: { duration: number, ease: string, onUpdate: (v: number) => void }) {
+  let startTime: number | null = null;
+  let rafId: number;
+  
+  const step = (timestamp: number) => {
+    if (!startTime) startTime = timestamp;
+    const progress = Math.min((timestamp - startTime) / (options.duration * 1000), 1);
+    
+    // Ease out quad
+    const easeProgress = progress * (2 - progress);
+    
+    const current = from + (to - from) * easeProgress;
+    options.onUpdate(current);
+    
+    if (progress < 1) {
+      rafId = window.requestAnimationFrame(step);
+    }
+  };
+  
+  rafId = window.requestAnimationFrame(step);
+  
+  return { stop: () => window.cancelAnimationFrame(rafId) };
+}
+
+export default function StatsSection() {
+  return (
+    <section className="relative py-16 bg-[#022a30] overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#04444c] rounded-full blur-[120px] opacity-50 pointer-events-none" />
+      
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-white/10">
+          {stats.map((stat, i) => (
+            <motion.div 
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: i * 0.2 }}
+              className="flex flex-col items-center justify-center pt-8 md:pt-0 text-center"
+            >
+              <Counter from={0} to={stat.value} suffix={stat.suffix} />
+              <p className="text-[#fcc42c] font-medium tracking-widest uppercase text-xs">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
