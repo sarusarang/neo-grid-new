@@ -2,6 +2,9 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 
+
+
+// SERVICES ARRAY
 const SERVICES = [
   {
     num: "01",
@@ -67,53 +70,80 @@ const SERVICES = [
   },
 ]
 
+
+
+
 export default function ServicesSection() {
+
+
   // First service open by default
   const [activeIndex, setActiveIndex] = useState<number>(0)
 
   const handleEnter = (index: number) => setActiveIndex(index)
 
+
   return (
-    <section className="bg-[#e8f3f4]">
+
+    <section className="bg-[#e8f3f4] border-b border-gray-100/5">
+
       {/* Section Header — contained */}
       <div className="container mx-auto px-4 lg:px-8 py-16">
+
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+
           <div>
+
             <div className="flex items-center gap-2 mb-4">
+
               <div className="w-2 h-2 rounded-full bg-[#04444c]" />
+
               <span className="text-[#04444c] text-sm font-bold uppercase tracking-widest">
                 Our Solar Services
               </span>
+
             </div>
+
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight max-w-md">
               Efficient and affordable<br />solar solutions.
             </h2>
+
           </div>
+
           <button className="self-start md:self-end flex items-center gap-3 bg-[#04444c] text-white px-6 py-3.5 rounded-full font-bold hover:bg-[#078291] transition-all group">
             View Services
             <span className="w-8 h-8 rounded-full bg-[#fcc42c] flex items-center justify-center group-hover:rotate-45 transition-transform">
               <ArrowUpRight className="w-4 h-4 text-[#011a1e]" />
             </span>
           </button>
+
         </div>
+
       </div>
+
+
 
       {/* Full-width Service Rows */}
       <div className="w-full">
+
         {SERVICES.map((service, index) => (
+
           <div
             key={service.num}
             onMouseEnter={() => handleEnter(index)}
           >
+
             {/* Service Row — full width, colored */}
             <motion.div
               animate={{ backgroundColor: activeIndex === index ? service.color : "#e8f3f4" }}
               transition={{ duration: 0.35, ease: "easeInOut" }}
               className="w-full px-4 md:px-12 lg:px-20 py-8 md:py-10 cursor-pointer"
             >
+
               <div className="grid grid-cols-12 gap-4 md:gap-8 items-center">
+
                 {/* Number */}
                 <div className="col-span-2 md:col-span-1">
+
                   <motion.span
                     animate={{ color: activeIndex === index ? service.accentColor : "#d1d5db" }}
                     transition={{ duration: 0.3 }}
@@ -121,10 +151,12 @@ export default function ServicesSection() {
                   >
                     {service.num}
                   </motion.span>
+
                 </div>
 
                 {/* Title & Desc */}
                 <div className="col-span-10 md:col-span-4">
+
                   <motion.h3
                     animate={{ color: activeIndex === index ? service.textColor : "#111827" }}
                     transition={{ duration: 0.3 }}
@@ -132,6 +164,7 @@ export default function ServicesSection() {
                   >
                     {service.title}
                   </motion.h3>
+
                   <motion.p
                     animate={{ color: activeIndex === index ? `${service.textColor}99` : "#6b7280" }}
                     transition={{ duration: 0.3 }}
@@ -139,12 +172,16 @@ export default function ServicesSection() {
                   >
                     {service.desc}
                   </motion.p>
+
                 </div>
 
                 {/* Bullets */}
                 <div className="hidden md:flex col-span-4 flex-col gap-2">
+
                   {service.bullets.map((b) => (
+
                     <div key={b} className="flex items-center gap-2">
+
                       <motion.span
                         animate={{ color: activeIndex === index ? service.accentColor : "#04444c" }}
                         transition={{ duration: 0.3 }}
@@ -152,6 +189,7 @@ export default function ServicesSection() {
                       >
                         ✦
                       </motion.span>
+
                       <motion.span
                         animate={{ color: activeIndex === index ? service.textColor : "#374151" }}
                         transition={{ duration: 0.3 }}
@@ -159,12 +197,17 @@ export default function ServicesSection() {
                       >
                         {b}
                       </motion.span>
+
                     </div>
+
                   ))}
+
                 </div>
+
 
                 {/* CTA */}
                 <div className="hidden md:flex col-span-3 justify-end">
+
                   <motion.button
                     animate={{
                       backgroundColor: activeIndex === index ? service.accentColor : "transparent",
@@ -175,11 +218,17 @@ export default function ServicesSection() {
                     className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold border"
                   >
                     View Details
+
                     <ArrowUpRight className="w-4 h-4" />
+
                   </motion.button>
+
                 </div>
+
               </div>
+
             </motion.div>
+
 
             {/* Full-width Animated Image Strip */}
             <AnimatePresence>

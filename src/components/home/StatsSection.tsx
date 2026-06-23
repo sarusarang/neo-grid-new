@@ -2,9 +2,9 @@ import { useRef, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 
 const stats = [
-  { label: "Megawatts Installed", value: 125, suffix: "MW" },
-  { label: "Carbon Offset", value: 50, suffix: "k Tons" },
-  { label: "Happy Customers", value: 10, suffix: "k+" },
+  { label: "Units Delivered", value: 75, suffix: " K+" },
+  { label: "Trusted Customers", value: 20, suffix: " k+" },
+  { label: "Solar Unit Installation", value: 10, suffix: " MW" },
 ]
 
 function Counter({ from, to, suffix }: { from: number; to: number; suffix: string }) {
@@ -25,7 +25,7 @@ function Counter({ from, to, suffix }: { from: number; to: number; suffix: strin
     return () => controls.stop()
   }, [from, to, inView, suffix])
 
-  return <h3 ref={nodeRef} className="text-5xl md:text-7xl font-black text-white mb-2 tracking-tighter" />
+  return <h3 ref={nodeRef} className="text-3xl md:text-6xl font-black text-white mb-2 tracking-tighter" />
 }
 
 // Simple local animate function since framer-motion's animate can be tricky to import correctly in some versions
@@ -55,7 +55,7 @@ function animate(from: number, to: number, options: { duration: number, ease: st
 
 export default function StatsSection() {
   return (
-    <section className="relative py-16 bg-[#022a30] overflow-hidden">
+    <section className="relative py-10 bg-[#022a30] overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#04444c] rounded-full blur-[120px] opacity-50 pointer-events-none" />
       

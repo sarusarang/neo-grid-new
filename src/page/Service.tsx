@@ -2,9 +2,13 @@ import { useRef, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 import { Sun, Zap, Battery, Shield, Cpu, Wrench, ArrowRight, CheckCircle, MapPin, Phone, Mail } from "lucide-react"
 import { Link } from "react-router-dom"
+import ServicesSection from "@/components/common/ServicesSection"
+
+
 
 // Simple local animate function
 function animate(from: number, to: number, options: { duration: number, ease: string, onUpdate: (v: number) => void }) {
+
   let startTime: number | null = null;
   let rafId: number;
 
@@ -26,9 +30,14 @@ function animate(from: number, to: number, options: { duration: number, ease: st
   rafId = window.requestAnimationFrame(step);
 
   return { stop: () => window.cancelAnimationFrame(rafId) };
+
 }
 
+
+
+// Simple local counter
 function Counter({ from, to, suffix, className }: { from: number; to: number; suffix: string; className?: string }) {
+
   const nodeRef = useRef<HTMLParagraphElement>(null)
   const inView = useInView(nodeRef, { once: true, margin: "-100px" })
 
@@ -47,10 +56,12 @@ function Counter({ from, to, suffix, className }: { from: number; to: number; su
   }, [from, to, inView, suffix])
 
   return <p ref={nodeRef} className={className}>{from}{suffix}</p>
+
 }
 
-// ─── DATA ────────────────────────────────────────────────────────────────────
 
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
 const SERVICES = [
   {
     icon: <Sun className="w-8 h-8" />,
@@ -102,6 +113,7 @@ const SERVICES = [
   },
 ]
 
+
 const PROCESS = [
   { step: "01", title: "Site Visit", desc: "We assess your roof, load, and grid connection to recommend the perfect system." },
   { step: "02", title: "Custom Design", desc: "Our engineers design a system optimized for your specific orientation and energy goals." },
@@ -110,6 +122,7 @@ const PROCESS = [
   { step: "05", title: "Commissioning", desc: "System is tested, app configured, and you're handed over with full training." },
   { step: "06", title: "Ongoing Support", desc: "Annual AMC visits and 24/7 remote monitoring keep your system at 100%." },
 ]
+
 
 const INDUSTRIES = [
   { name: "Residential Homes", img: "https://images.unsplash.com/photo-1508514177221-188b1c77eca2?auto=format&fit=crop&q=80&w=400" },
@@ -120,6 +133,7 @@ const INDUSTRIES = [
   { name: "Healthcare Facilities", img: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=400" },
 ]
 
+
 const WHY_US = [
   { value: 500, suffix: "+", label: "Projects Completed" },
   { value: 25, suffix: "yr", label: "Performance Warranty" },
@@ -127,57 +141,86 @@ const WHY_US = [
   { value: 24, suffix: "/7", label: "Support Available" },
 ]
 
-// ─── PAGE ────────────────────────────────────────────────────────────────────
 
+
+// ─── PAGE ────────────────────────────────────────────────────────────────────
 export default function Service() {
+
+
   return (
+
+
     <div className="bg-[#011a1e] text-white min-h-screen">
 
+
       {/* ── 1. HERO ───────────────────────────────────────────────── */}
-      <section className="relative min-h-[100vh] flex items-center overflow-hidden pt-24 pb-16">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16">
+
         <div className="absolute inset-0 z-0">
+
           <img
             src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=2000"
             alt="Solar"
+            loading="lazy"
             className="w-full h-full object-cover opacity-40"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#011a1e]/30 via-[#011a1e]/10 to-transparent" />
+
+          <div className="absolute inset-0 bg-linear-to-r from-[#011a1e]/30 via-[#011a1e]/10 to-transparent" />
+
         </div>
+
+
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
+
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-10 bg-[#fcc42c]" />
               <span className="text-[#fcc42c] text-xs font-black uppercase tracking-widest">Our Services</span>
             </div>
+
             <h1 className="text-5xl md:text-7xl font-black leading-[1.1] mb-6">
               Complete Solar<br />
               <span className="text-[#fcc42c]">Energy Solutions</span>
             </h1>
+
             <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
               From consultation to installation and lifetime support — NeoGrid delivers every aspect of your solar journey under one roof.
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4">
+
               <a href="tel:+919846131500" className="inline-flex items-center gap-3 bg-[#fcc42c] text-[#011a1e] px-8 py-4 rounded-full font-black text-lg hover:bg-white transition-colors">
                 <Phone className="w-5 h-5" /> Call Now
               </a>
+
               <Link to="#services" className="inline-flex items-center gap-3 border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-colors">
                 Explore Services <ArrowRight className="w-5 h-5" />
               </Link>
+
             </div>
+
           </motion.div>
+
         </div>
+
       </section>
+
 
       {/* ── 2. WHY US STATS ──────────────────────────────────────── */}
       <section className="py-14 bg-[#04444c]">
+
         <div className="container mx-auto px-4 lg:px-8">
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+
             {WHY_US.map((item, i) => (
+
               <motion.div
                 key={item.label}
                 initial={{ opacity: 0, y: 20 }}
@@ -186,21 +229,30 @@ export default function Service() {
                 transition={{ delay: i * 0.1 }}
                 className="text-center"
               >
+
                 <Counter
                   from={0}
                   to={item.value}
                   suffix={item.suffix}
                   className="text-4xl md:text-5xl font-black text-[#fcc42c] mb-2"
                 />
+
                 <p className="text-white/80 text-sm font-semibold uppercase tracking-wider">{item.label}</p>
+
               </motion.div>
+
             ))}
+
           </div>
+
         </div>
+
       </section>
 
+
+
       {/* ── 3. SERVICE CARDS GRID ────────────────────────────────── */}
-      <section id="services" className="py-20 bg-[#011a1e]">
+      <section id="services" className="py-14 bg-[#011a1e]">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -231,7 +283,7 @@ export default function Service() {
                     alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#011a1e] to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#011a1e] to-transparent" />
                   <div className="absolute bottom-4 left-4 p-3 rounded-xl text-white" style={{ backgroundColor: service.color }}>
                     {service.icon}
                   </div>
@@ -259,9 +311,18 @@ export default function Service() {
         </div>
       </section>
 
+
+
+      {/* Services Section */}
+      <ServicesSection />
+
+
+
       {/* ── 4. PROCESS STEPS ─────────────────────────────────────── */}
-      <section className="py-20 bg-[#022a30]">
+      <section className="py-14 bg-[#022a30]">
+
         <div className="container mx-auto px-4 lg:px-8">
+
           <div className="text-center mb-16">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -275,7 +336,9 @@ export default function Service() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
             {PROCESS.map((step, i) => (
+
               <motion.div
                 key={step.step}
                 initial={{ opacity: 0, y: 30 }}
@@ -284,7 +347,9 @@ export default function Service() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="relative bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-colors group"
               >
+
                 <div className="flex items-start justify-between mb-6">
+
                   <span className="text-5xl font-black text-[#fcc42c] group-hover:text-white transition-colors leading-none">
                     {step.step}
                   </span>
@@ -292,16 +357,19 @@ export default function Service() {
                     <div className="w-2 h-2 rounded-full bg-[#fcc42c]" />
                   </div>
                 </div>
+
                 <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{step.desc}</p>
+
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+
       {/* ── 5. INDUSTRIES WE SERVE ───────────────────────────────── */}
-      <section className="py-20 bg-[#011a1e]">
+      <section className="py-14 bg-[#011a1e]">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -323,10 +391,10 @@ export default function Service() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="relative rounded-2xl overflow-hidden aspect-[4/3] group cursor-pointer"
+                className="relative rounded-2xl overflow-hidden aspect-4/3 group cursor-pointer"
               >
                 <img src={ind.img} alt={ind.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-5">
                   <p className="text-white font-extrabold text-base md:text-lg leading-tight">{ind.name}</p>
                 </div>

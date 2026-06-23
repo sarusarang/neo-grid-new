@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import { MapPin, Calendar, X, Search, ArrowRight } from "lucide-react"
+import { MapPin, Calendar, X, Search, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { Link } from "react-router-dom"
 
 // ─── TYPES ──────────────────────────────────────────────────────────────────
@@ -20,6 +20,16 @@ interface Project {
   img: string
   highlights: string[]
 }
+
+interface GalleryItem {
+  id: number
+  title: string
+  category: string
+  location: string
+  img: string
+  desc: string
+}
+
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -112,6 +122,105 @@ const PROJECTS: Project[] = [
   }
 ]
 
+const GALLERY_IMAGES: GalleryItem[] = [
+  {
+    id: 1,
+    title: "Monjeri Residential Array",
+    category: "Residential",
+    location: "Manjeri, Kerala",
+    img: "https://images.unsplash.com/photo-1508514177221-188b1c77eca2?auto=format&fit=crop&q=80&w=800",
+    desc: "A premium 15kW off-grid solar residential system installed on a modern contemporary villa. Showcases custom mounting frames engineered to match the roof slope."
+  },
+  {
+    id: 2,
+    title: "Apex Factory Roof Installation",
+    category: "Industrial",
+    location: "Industrial Area, Malappuram",
+    img: "https://images.unsplash.com/photo-1592833159057-69de41dbec84?auto=format&fit=crop&q=80&w=800",
+    desc: "Completed 250kW grid-tied commercial rooftop installation powering a high-demand injection molding manufacturing unit."
+  },
+  {
+    id: 3,
+    title: "Eco-Villas Off-Grid Panels",
+    category: "Residential",
+    location: "Wayanad, Kerala",
+    img: "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&q=80&w=800",
+    desc: "45kW solar microgrid integrated seamlessly with nature-inspired architecture for full power independence in challenging weather conditions."
+  },
+  {
+    id: 4,
+    title: "Academy Net-Metered Setup",
+    category: "Commercial",
+    location: "Perinthalmanna, Kerala",
+    img: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=800",
+    desc: "Rooftop distribution layout spanning over 80kW, utilizing premium high-yield bifacial panels to catch light reflected from the white roof membrane."
+  },
+  {
+    id: 5,
+    title: "Smart Commercial Solar Carport",
+    category: "Commercial",
+    location: "Kozhikode, Kerala",
+    img: "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&q=80&w=800",
+    desc: "Elevated structure design functioning as both a premium shade canopy for executive cars and a high-yield 120kW clean power generator."
+  },
+  {
+    id: 6,
+    title: "High-Capacity LFP Battery Racks",
+    category: "Equipment",
+    location: "NeoGrid Lab, Kerala",
+    img: "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?auto=format&fit=crop&q=80&w=800",
+    desc: "Close-up of custom-built 120kWh Lithium Iron Phosphate (LFP) battery storage racks, monitored via active smart battery management systems (BMS)."
+  },
+  {
+    id: 7,
+    title: "Smart Hybrid Inverter System",
+    category: "Equipment",
+    location: "Wayanad Eco-Resort",
+    img: "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&q=80&w=800",
+    desc: "Sleek wall installation of dual 15kW Hybrid Smart Inverters in a clean parallel config, ensuring auto-switching between solar, battery, grid, and generator."
+  },
+  {
+    id: 8,
+    title: "Agricultural Micro-Irrigation Pump",
+    category: "Agricultural",
+    location: "Wandoor, Kerala",
+    img: "https://images.unsplash.com/photo-1615553879069-f8c0f99acf61?auto=format&fit=crop&q=80&w=800",
+    desc: "Solar powered high-torque variable frequency drive pumping station supporting automatic drip irrigation system for 15 acres of farming land."
+  },
+  {
+    id: 9,
+    title: "Quality Inspection and Testing",
+    category: "Installation",
+    location: "Apex Plant Site",
+    img: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&q=80&w=800",
+    desc: "NeoGrid engineering team performing testing and panel string current measurements to verify peak generation performance before grid sync."
+  },
+  {
+    id: 10,
+    title: "High-Efficiency Solar Cell Tech",
+    category: "Equipment",
+    location: "Monjeri Site",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800",
+    desc: "Detailed close-up showing the gridlines of a high-efficiency mono-crystalline solar cell designed to maximize ambient and diffuse light conversion."
+  },
+  {
+    id: 11,
+    title: "Rural Agri Solar Station",
+    category: "Agricultural",
+    location: "Nilambur, Kerala",
+    img: "https://images.unsplash.com/photo-1548613053-220f4a80fb4f?auto=format&fit=crop&q=80&w=800",
+    desc: "20kW ground mount tracking system designed specifically to withstand regional wind profiles and heavy seasonal monsoons in rural farm fields."
+  },
+  {
+    id: 12,
+    title: "Malappuram Residential Setup",
+    category: "Residential",
+    location: "Malappuram, Kerala",
+    img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800",
+    desc: "Sleek elevated rooftop structure maximizing footprint usage on a modern flat-roof villa while creating functional shaded workspace underneath."
+  }
+]
+
 // ─── COUNTER COMPONENT ────────────────────────────────────────────────────────
 
 function animate(from: number, to: number, options: { duration: number; ease: string; onUpdate: (v: number) => void }) {
@@ -162,15 +271,19 @@ function StatCounter({ from, to, suffix, className }: { from: number; to: number
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 export default function Projects() {
+  const [activeTab, setActiveTab] = useState<"projects" | "gallery">("projects")
   const [selectedCategory, setSelectedCategory] = useState<string>("All")
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [selectedGalleryIndex, setSelectedGalleryIndex] = useState<number | null>(null)
+  const [direction, setDirection] = useState<number>(0)
 
   // Categories list
   const categories = useMemo(() => {
-    const cats = new Set(PROJECTS.map(p => p.category))
+    const items = activeTab === "projects" ? PROJECTS : GALLERY_IMAGES
+    const cats = new Set(items.map(item => item.category))
     return ["All", ...Array.from(cats)]
-  }, [])
+  }, [activeTab])
 
   // Filtered projects
   const filteredProjects = useMemo(() => {
@@ -183,11 +296,56 @@ export default function Projects() {
     })
   }, [selectedCategory, searchQuery])
 
+  // Filtered gallery images
+  const filteredGalleryImages = useMemo(() => {
+    return GALLERY_IMAGES.filter(img => {
+      const matchesCategory = selectedCategory === "All" || img.category === selectedCategory
+      const matchesSearch = img.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        img.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        img.location.toLowerCase().includes(searchQuery.toLowerCase())
+      return matchesCategory && matchesSearch
+    })
+  }, [selectedCategory, searchQuery])
+
   // Count items per category helper
   const getCategoryCount = (category: string) => {
-    if (category === "All") return PROJECTS.length
-    return PROJECTS.filter(p => p.category === category).length
+    const items = activeTab === "projects" ? PROJECTS : GALLERY_IMAGES
+    if (category === "All") return items.length
+    return items.filter(item => item.category === category).length
   }
+
+  // Handle Tab Change
+  const handleTabChange = (tab: "projects" | "gallery") => {
+    setActiveTab(tab)
+    setSelectedCategory("All")
+    setSearchQuery("")
+  }
+
+  // Navigation handlers for Gallery Lightbox
+  const handlePrevImage = () => {
+    if (selectedGalleryIndex === null || filteredGalleryImages.length === 0) return
+    setDirection(-1)
+    setSelectedGalleryIndex((prev) => (prev !== null ? (prev - 1 + filteredGalleryImages.length) % filteredGalleryImages.length : null))
+  }
+
+  const handleNextImage = () => {
+    if (selectedGalleryIndex === null || filteredGalleryImages.length === 0) return
+    setDirection(1)
+    setSelectedGalleryIndex((prev) => (prev !== null ? (prev + 1) % filteredGalleryImages.length : null))
+  }
+
+  // Keyboard navigation for Lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedGalleryIndex === null) return
+      if (e.key === "Escape") setSelectedGalleryIndex(null)
+      if (e.key === "ArrowLeft") handlePrevImage()
+      if (e.key === "ArrowRight") handleNextImage()
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [selectedGalleryIndex, filteredGalleryImages])
+
 
   return (
     <div className="bg-[#011a1e] text-white min-h-screen font-sans selection:bg-[#fcc42c] selection:text-[#011a1e]">
@@ -251,9 +409,46 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* ── FILTERS AND SEARCH ──────────────────────────────────────── */}
+      {/* ── TABS SELECTOR & FILTERS ────────────────────────────────── */}
       <section className="py-12">
         <div className="container mx-auto px-4 lg:px-8">
+
+          {/* Tab Switcher */}
+          <div className="flex justify-center mb-12 relative z-20">
+            <div className="bg-white/5 border border-white/10 rounded-full p-1.5 flex gap-1 relative backdrop-blur-md">
+              <button
+                onClick={() => handleTabChange("projects")}
+                className={`relative px-8 py-3 rounded-full text-xs font-black uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
+                  activeTab === "projects" ? "text-[#011a1e]" : "text-gray-300 hover:text-white"
+                }`}
+              >
+                {activeTab === "projects" && (
+                  <motion.div
+                    layoutId="activeTabPill"
+                    className="absolute inset-0 bg-[#fcc42c] rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">Projects</span>
+              </button>
+              <button
+                onClick={() => handleTabChange("gallery")}
+                className={`relative px-8 py-3 rounded-full text-xs font-black uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
+                  activeTab === "gallery" ? "text-[#011a1e]" : "text-gray-300 hover:text-white"
+                }`}
+              >
+                {activeTab === "gallery" && (
+                  <motion.div
+                    layoutId="activeTabPill"
+                    className="absolute inset-0 bg-[#fcc42c] rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">Photo Gallery</span>
+              </button>
+            </div>
+          </div>
+
           <div className="flex flex-col md:flex-row gap-6 justify-between items-center mb-12">
 
             {/* Filter pills */}
@@ -281,7 +476,7 @@ export default function Projects() {
             <div className="relative w-full md:w-72">
               <input
                 type="text"
-                placeholder="Search projects, location..."
+                placeholder={activeTab === "projects" ? "Search projects, location..." : "Search photos, tech, location..."}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-white/5 border border-white/10 rounded-full px-5 py-3 pl-11 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#fcc42c] focus:bg-white/10 transition-all"
@@ -300,79 +495,166 @@ export default function Projects() {
           </div>
 
           {/* ── PROJECTS GRID ─────────────────────────────────────────── */}
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project) => (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4 }}
-                  key={project.id}
-                  onClick={() => setSelectedProject(project)}
-                  className="group cursor-pointer bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-[#fcc42c]/40 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-[#04444c]/20"
-                >
-                  {/* Photo area */}
-                  <div className="relative h-60 md:h-64 overflow-hidden">
+          {activeTab === "projects" && (
+            <motion.div
+              layout
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((project) => (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4 }}
+                    key={project.id}
+                    onClick={() => setSelectedProject(project)}
+                    className="group cursor-pointer bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-[#fcc42c]/40 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-[#04444c]/20"
+                  >
+                    {/* Photo area */}
+                    <div className="relative h-60 md:h-64 overflow-hidden">
+                      <img
+                        src={project.img}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#011a1e] via-[#011a1e]/10 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+
+                      {/* Category & Capacity Badges */}
+                      <div className="absolute top-4 left-4 flex gap-2">
+                        <span className="bg-[#04444c]/80 backdrop-blur-md text-[#fcc42c] text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-full border border-white/10">
+                          {project.category}
+                        </span>
+                        <span className="bg-[#fcc42c] text-[#011a1e] text-[10px] font-black uppercase px-3 py-1.5 rounded-full shadow-md">
+                          {project.capacity}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Info area */}
+                    <div className="p-6 md:p-7 flex flex-col flex-1">
+                      <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-2">
+                        <MapPin className="w-3.5 h-3.5 text-[#fcc42c]" />
+                        <span>{project.location}</span>
+                      </div>
+
+                      <h3 className="text-xl font-bold text-white group-hover:text-[#fcc42c] transition-colors mb-3 leading-snug">
+                        {project.title}
+                      </h3>
+
+                      <p className="text-gray-400 text-xs md:text-sm line-clamp-2 leading-relaxed mb-6">
+                        {project.desc}
+                      </p>
+
+                      <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs text-gray-400 font-bold group-hover:text-white transition-colors">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3.5 h-3.5 text-[#fcc42c]" /> {project.year}
+                        </span>
+                        <span className="flex items-center gap-1 text-[#fcc42c] group-hover:gap-2 transition-all">
+                          View Details <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
+
+          {/* ── PHOTO GALLERY GRID ───────────────────────────────────── */}
+          {activeTab === "gallery" && (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key="gallery-grid"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5"
+              >
+                {filteredGalleryImages.map((item, idx) => (
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5, delay: idx * 0.05 }}
+                    key={item.id}
+                    onClick={() => {
+                      setDirection(0)
+                      setSelectedGalleryIndex(idx)
+                    }}
+                    className={`group cursor-pointer rounded-3xl overflow-hidden relative break-inside-avoid mb-5 border border-white/10 hover:border-[#fcc42c]/50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-[#04444c]/30 ${
+                      idx === 0 || idx === 4 || idx === 8 ? "aspect-[4/3]" :
+                      idx === 1 || idx === 6 ? "aspect-[3/4]" :
+                      idx === 2 || idx === 7 ? "aspect-[4/3]" :
+                      idx === 3 || idx === 9 ? "aspect-[3/4]" :
+                      "aspect-[4/3]"
+                    }`}
+                  >
+                    {/* Full-bleed image */}
                     <img
-                      src={project.img}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      src={item.img}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#011a1e] via-[#011a1e]/10 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
-                    {/* Category & Capacity Badges */}
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      <span className="bg-[#04444c]/80 backdrop-blur-md text-[#fcc42c] text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-full border border-white/10">
-                        {project.category}
-                      </span>
-                      <span className="bg-[#fcc42c] text-[#011a1e] text-[10px] font-black uppercase px-3 py-1.5 rounded-full shadow-md">
-                        {project.capacity}
-                      </span>
-                    </div>
-                  </div>
+                    {/* Permanent bottom gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#011a1e]/90 via-[#011a1e]/30 to-transparent" />
 
-                  {/* Info area */}
-                  <div className="p-6 md:p-7 flex flex-col flex-1">
-                    <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-2">
-                      <MapPin className="w-3.5 h-3.5 text-[#fcc42c]" />
-                      <span>{project.location}</span>
-                    </div>
-
-                    <h3 className="text-xl font-bold text-white group-hover:text-[#fcc42c] transition-colors mb-3 leading-snug">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-gray-400 text-xs md:text-sm line-clamp-2 leading-relaxed mb-6">
-                      {project.desc}
-                    </p>
-
-                    <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs text-gray-400 font-bold group-hover:text-white transition-colors">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-[#fcc42c]" /> {project.year}
-                      </span>
-                      <span className="flex items-center gap-1 text-[#fcc42c] group-hover:gap-2 transition-all">
-                        View Details <ArrowRight className="w-3.5 h-3.5" />
+                    {/* Category badge top-left */}
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="bg-[#fcc42c] text-[#011a1e] text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
+                        {item.category}
                       </span>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+
+                    {/* View icon top-right */}
+                    <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                      <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                        <ArrowRight className="w-4 h-4 text-white rotate-[-45deg]" />
+                      </div>
+                    </div>
+
+                    {/* Bottom info — always visible */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                      <h4 className="text-white font-extrabold text-lg leading-snug mb-1 group-hover:text-[#fcc42c] transition-colors duration-300">
+                        {item.title}
+                      </h4>
+
+                      {/* Location — slides up on hover */}
+                      <div className="overflow-hidden">
+                        <div className="flex items-center gap-1.5 text-gray-300 text-xs translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 ease-out mb-1">
+                          <MapPin className="w-3.5 h-3.5 text-[#fcc42c] shrink-0" />
+                          <span className="font-medium">{item.location}</span>
+                        </div>
+                      </div>
+
+                      {/* Description — slides up further on hover */}
+                      <div className="overflow-hidden">
+                        <p className="text-gray-400 text-[11px] leading-relaxed line-clamp-2 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75 ease-out">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Hover glow ring effect */}
+                    <div className="absolute inset-0 rounded-3xl ring-0 group-hover:ring-2 group-hover:ring-[#fcc42c]/30 transition-all duration-500 pointer-events-none" />
+                  </motion.div>
+                ))}
+              </motion.div>
             </AnimatePresence>
-          </motion.div>
+          )}
 
           {/* Empty state */}
-          {filteredProjects.length === 0 && (
+          {((activeTab === "projects" && filteredProjects.length === 0) ||
+            (activeTab === "gallery" && filteredGalleryImages.length === 0)) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="text-center py-20 bg-white/5 border border-white/10 rounded-3xl"
             >
-              <p className="text-gray-400 text-lg mb-2">No projects found matching your filters.</p>
+              <p className="text-gray-400 text-lg mb-2">No items found matching your filters.</p>
               <button
                 onClick={() => { setSelectedCategory("All"); setSearchQuery(""); }}
                 className="text-[#fcc42c] font-extrabold text-sm hover:underline"
@@ -484,6 +766,147 @@ export default function Projects() {
               </div>
 
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── GALLERY MODAL (LIGHTBOX SLIDER) ─────────────────────────── */}
+      <AnimatePresence>
+        {selectedGalleryIndex !== null && filteredGalleryImages[selectedGalleryIndex] && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[150] flex items-center justify-center bg-[#011a1e]/95 backdrop-blur-xl p-4 md:p-10 select-none"
+          >
+            {/* Close button top right */}
+            <button
+              onClick={() => setSelectedGalleryIndex(null)}
+              className="absolute top-6 right-6 z-[160] p-3 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white hover:text-[#011a1e] hover:scale-105 transition-all duration-300 shadow-lg cursor-pointer"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Left navigation arrow */}
+            <button
+              onClick={handlePrevImage}
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-[160] p-4 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[#fcc42c] hover:text-[#011a1e] hover:scale-110 active:scale-95 transition-all duration-300 shadow-lg cursor-pointer hidden sm:flex items-center justify-center"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            {/* Right navigation arrow */}
+            <button
+              onClick={handleNextImage}
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-[160] p-4 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[#fcc42c] hover:text-[#011a1e] hover:scale-110 active:scale-95 transition-all duration-300 shadow-lg cursor-pointer hidden sm:flex items-center justify-center"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            {/* Main Lightbox Content Area */}
+            <div className="max-w-5xl w-full flex flex-col items-center gap-6 relative">
+              {/* Image Frame with sliding animations */}
+              <div className="relative w-full aspect-video sm:h-[60vh] max-h-[550px] bg-black/40 rounded-2xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center">
+                <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                  <motion.img
+                    key={selectedGalleryIndex}
+                    custom={direction}
+                    variants={{
+                      enter: (dir: number) => ({
+                        x: dir > 0 ? 300 : dir < 0 ? -300 : 0,
+                        opacity: 0,
+                        scale: 0.95
+                      }),
+                      center: {
+                        x: 0,
+                        opacity: 1,
+                        scale: 1
+                      },
+                      exit: (dir: number) => ({
+                        x: dir < 0 ? 300 : dir > 0 ? -300 : 0,
+                        opacity: 0,
+                        scale: 0.95
+                      })
+                    }}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      x: { type: "spring", stiffness: 350, damping: 35 },
+                      opacity: { duration: 0.25 },
+                      scale: { duration: 0.25 }
+                    }}
+                    src={filteredGalleryImages[selectedGalleryIndex].img}
+                    alt={filteredGalleryImages[selectedGalleryIndex].title}
+                    className="w-full h-full object-contain"
+                  />
+                </AnimatePresence>
+
+                {/* Mobile tap targets on the sides of the image itself */}
+                <div className="absolute inset-0 flex justify-between pointer-events-none sm:hidden">
+                  <div
+                    onClick={handlePrevImage}
+                    className="w-1/3 h-full pointer-events-auto cursor-pointer"
+                  />
+                  <div
+                    onClick={handleNextImage}
+                    className="w-1/3 h-full pointer-events-auto cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              {/* Bottom text info card */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.15 }}
+                className="w-full bg-[#022a30]/80 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-6 text-center sm:text-left relative shadow-xl max-w-4xl"
+              >
+                {/* Index marker */}
+                <div className="absolute top-5 right-5 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+                  {selectedGalleryIndex + 1} / {filteredGalleryImages.length}
+                </div>
+
+                <div className="flex flex-wrap gap-2 justify-center sm:justify-start mb-3">
+                  <span className="bg-[#fcc42c]/10 border border-[#fcc42c]/30 text-[#fcc42c] text-[10px] font-black uppercase px-3 py-1 rounded-full">
+                    {filteredGalleryImages[selectedGalleryIndex].category}
+                  </span>
+                  {filteredGalleryImages[selectedGalleryIndex].location && (
+                    <span className="bg-white/5 border border-white/10 text-gray-300 text-[10px] font-bold uppercase px-3 py-1 rounded-full flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-[#fcc42c]" />
+                      {filteredGalleryImages[selectedGalleryIndex].location}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-2">
+                  {filteredGalleryImages[selectedGalleryIndex].title}
+                </h3>
+
+                <p className="text-gray-300 text-xs md:text-sm leading-relaxed max-w-3xl">
+                  {filteredGalleryImages[selectedGalleryIndex].desc}
+                </p>
+
+                {/* Mobile visible navigation helper/buttons */}
+                <div className="flex justify-between items-center mt-5 pt-4 border-t border-white/5 sm:hidden">
+                  <button
+                    onClick={handlePrevImage}
+                    className="flex items-center gap-1.5 text-xs text-[#fcc42c] font-black uppercase tracking-wider cursor-pointer"
+                  >
+                    <ChevronLeft className="w-4 h-4" /> Prev
+                  </button>
+                  <span className="text-[10px] text-gray-400 font-semibold">
+                    Swipe or Tap Sides to Navigate
+                  </span>
+                  <button
+                    onClick={handleNextImage}
+                    className="flex items-center gap-1.5 text-xs text-[#fcc42c] font-black uppercase tracking-wider cursor-pointer"
+                  >
+                    Next <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
