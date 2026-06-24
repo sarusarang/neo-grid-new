@@ -64,51 +64,51 @@ function Counter({ from, to, suffix, className }: { from: number; to: number; su
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const SERVICES = [
   {
-    icon: <Sun className="w-8 h-8" />,
-    title: "Solar Panel Installation",
-    desc: "Professional rooftop and ground-mounted solar array installation for residential, commercial, and industrial properties.",
-    points: ["Rooftop & Ground Mount", "Structural Analysis", "Grid-Tie & Off-Grid", "Permit Handling"],
-    img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800",
-    color: "#04444c",
-  },
-  {
     icon: <Zap className="w-8 h-8" />,
-    title: "Inverter Solutions",
-    desc: "From string to hybrid micro-inverters, we supply and install the right inverter system for maximum energy yield.",
-    points: ["Hybrid Inverters", "String Inverters", "Micro-Inverters", "Smart Monitoring"],
+    title: "Smart Inverter & UPS",
+    desc: "Next-generation lithium backup system offering smarter, longer, and safer performance for homes and businesses.",
+    points: ["Li-On Inverter & UPS", "HKVA Inverter & UPS", "Hybrid Inverters", "Solar Inverter and UPS"],
     img: "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=800",
-    color: "#078291",
+    color: "#04444c",
   },
   {
     icon: <Battery className="w-8 h-8" />,
     title: "Battery Storage",
-    desc: "Cutting-edge lithium battery storage systems to store excess solar energy and power your home through the night.",
+    desc: "Advanced Li-Ion battery systems store excess energy and provide reliable backup power whenever you need it.",
     points: ["Lithium Iron Phosphate", "Scalable Capacity", "Smart BMS", "Emergency Backup"],
     img: "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?auto=format&fit=crop&q=80&w=800",
-    color: "#022a30",
-  },
-  {
-    icon: <Wrench className="w-8 h-8" />,
-    title: "AMC & Maintenance",
-    desc: "Annual Maintenance Contracts to ensure your solar system operates at peak efficiency year after year.",
-    points: ["Regular Inspections", "Panel Cleaning", "Performance Reports", "24/7 Support"],
-    img: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800",
-    color: "#04444c",
-  },
-  {
-    icon: <Cpu className="w-8 h-8" />,
-    title: "Smart Monitoring",
-    desc: "Real-time energy monitoring and analytics via our cloud platform and mobile app so you always know your output.",
-    points: ["Live Dashboard", "Mobile App", "Alerts & Reports", "Remote Diagnostics"],
-    img: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=800",
     color: "#078291",
   },
   {
     icon: <Shield className="w-8 h-8" />,
-    title: "Solar Consultancy",
-    desc: "End-to-end solar consultancy including site assessment, energy audits, financial modeling, and subsidy guidance.",
-    points: ["Site Assessment", "Energy Audit", "Subsidy Guidance", "ROI Analysis"],
+    title: "Solar Energy Solutions Consultancy",
+    desc: "Comprehensive consultancy for smart lithium inverter, UPS, and energy backup systems designed to deliver reliable, efficient, and uninterrupted power solutions.",
+    points: ["Energy Requirement Assessment", "Power Load Evaluation", "Customized Backup Solutions", "Efficiency & Cost Optimization"],
     img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
+    color: "#022a30",
+  },
+  {
+    icon: <Sun className="w-8 h-8" />,
+    title: "Solar System Installation",
+    desc: "Committed to high-performance solar systems for sustainable and uninterrupted energy solutions.",
+    points: ["Customized System Design", "High-Efficiency Solar Components", "Professional Installation & Integration", "Reliable Performance & Energy Savings"],
+    img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800",
+    color: "#04444c",
+  },
+  {
+    icon: <Cpu className="w-8 h-8" />,
+    title: "Introducing Smart Technology",
+    desc: "Advanced technology powers smarter, safer, and more reliable energy backup solutions.",
+    points: ["Intelligent Power Management", "Real-Time Performance Monitoring", "Stable Voltage Regulation", "Automatic Backup Switching"],
+    img: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=800",
+    color: "#078291",
+  },
+  {
+    icon: <Wrench className="w-8 h-8" />,
+    title: "Annual Maintenance & Support",
+    desc: "Comprehensive maintenance services to keep your Li-Ion inverter, UPS, and solar power systems operating at peak performance year after year.",
+    points: ["Regular System Inspections", "Battery Health Monitoring", "Performance & Efficiency Reports", "24/7 Technical Support"],
+    img: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800",
     color: "#022a30",
   },
 ]
@@ -179,18 +179,19 @@ export default function Service() {
             className="max-w-3xl"
           >
 
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-3">
               <div className="h-px w-10 bg-[#fcc42c]" />
               <span className="text-[#fcc42c] text-xs font-black uppercase tracking-widest">Our Services</span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-black leading-[1.1] mb-6">
-              Complete Solar<br />
+            <h1 className="text-5xl md:text-6xl font-black leading-[1.1] mb-6">
+              Smart Solution for
+              Power Backup & <br />
               <span className="text-[#fcc42c]">Energy Solutions</span>
             </h1>
 
-            <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
-              From consultation to installation and lifetime support — NeoGrid delivers every aspect of your solar journey under one roof.
+            <p className="text-gray-300 text-lg md:text-lg leading-relaxed mb-10 max-w-2xl">
+              Smart solutions delivering reliable power backup and efficient energy management everywhere.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -253,8 +254,11 @@ export default function Service() {
 
       {/* ── 3. SERVICE CARDS GRID ────────────────────────────────── */}
       <section id="services" className="py-14 bg-[#011a1e]">
+
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
+        
+          <div className="text-center mb-14">
+        
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -263,12 +267,16 @@ export default function Service() {
             >
               What We <span className="text-[#fcc42c]">Offer</span>
             </motion.h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">Six specialized services designed to take you from zero to full solar independence.</p>
+        
+            <p className="text-gray-400 text-lg max-w-5xl mx-auto">Unique & highly efficient solutions for  Smart Power Backup and Reliable Solar energy</p>
+        
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+           
             {SERVICES.map((service, i) => (
-              <motion.div
+           
+           <motion.div
                 key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -276,17 +284,23 @@ export default function Service() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="group relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 hover:border-[#fcc42c]/40 transition-all duration-500 flex flex-col"
               >
+           
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden">
+           
                   <img
                     src={service.img}
                     alt={service.title}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+           
                   <div className="absolute inset-0 bg-linear-to-t from-[#011a1e] to-transparent" />
+           
                   <div className="absolute bottom-4 left-4 p-3 rounded-xl text-white" style={{ backgroundColor: service.color }}>
                     {service.icon}
                   </div>
+           
                 </div>
 
                 {/* Content */}

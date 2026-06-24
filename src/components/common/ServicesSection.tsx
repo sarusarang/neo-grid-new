@@ -98,7 +98,7 @@ export default function ServicesSection() {
               <div className="w-2 h-2 rounded-full bg-[#04444c]" />
 
               <span className="text-[#04444c] text-sm font-bold uppercase tracking-widest">
-                Our Solar Services
+                Our Solar Dedicated Services
               </span>
 
             </div>
