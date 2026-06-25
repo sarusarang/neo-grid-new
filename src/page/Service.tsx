@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
-import { Sun, Zap, Battery, Shield, Cpu, Wrench, ArrowRight, CheckCircle, MapPin, Phone, Mail } from "lucide-react"
+import { Sun, Zap, Battery, Shield, Cpu, Wrench, ArrowRight, CheckCircle, MapPin, Phone, Mail, ShoppingCart, MessageCircle } from "lucide-react"
 import { Link } from "react-router-dom"
 import ServicesSection from "@/components/common/ServicesSection"
 
@@ -62,7 +62,25 @@ function Counter({ from, to, suffix, className }: { from: number; to: number; su
 
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
-const SERVICES = [
+
+// CTA types for service cards
+type ServiceCta =
+  | { type: "buy"; href: string }
+  | { type: "consult"; phone: string }
+  | { type: "contact"; phone: string }
+
+interface Service {
+  icon: React.ReactNode
+  title: string
+  desc: string
+  points: string[]
+  img: string
+  color: string
+  cta: ServiceCta
+  ctaLabel: string
+}
+
+const SERVICES: Service[] = [
   {
     icon: <Zap className="w-8 h-8" />,
     title: "Smart Inverter & UPS",
@@ -70,6 +88,8 @@ const SERVICES = [
     points: ["Li-On Inverter & UPS", "HKVA Inverter & UPS", "Hybrid Inverters", "Solar Inverter and UPS"],
     img: "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=800",
     color: "#04444c",
+    cta: { type: "buy", href: "/products" },
+    ctaLabel: "Buy Now!",
   },
   {
     icon: <Battery className="w-8 h-8" />,
@@ -78,6 +98,8 @@ const SERVICES = [
     points: ["Lithium Iron Phosphate", "Scalable Capacity", "Smart BMS", "Emergency Backup"],
     img: "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?auto=format&fit=crop&q=80&w=800",
     color: "#078291",
+    cta: { type: "buy", href: "/products" },
+    ctaLabel: "Buy Now!",
   },
   {
     icon: <Shield className="w-8 h-8" />,
@@ -86,6 +108,8 @@ const SERVICES = [
     points: ["Energy Requirement Assessment", "Power Load Evaluation", "Customized Backup Solutions", "Efficiency & Cost Optimization"],
     img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
     color: "#022a30",
+    cta: { type: "consult", phone: "+919846131500" },
+    ctaLabel: "Get Free Consultation",
   },
   {
     icon: <Sun className="w-8 h-8" />,
@@ -94,6 +118,8 @@ const SERVICES = [
     points: ["Customized System Design", "High-Efficiency Solar Components", "Professional Installation & Integration", "Reliable Performance & Energy Savings"],
     img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800",
     color: "#04444c",
+    cta: { type: "contact", phone: "+919846131500" },
+    ctaLabel: "Contact Now",
   },
   {
     icon: <Cpu className="w-8 h-8" />,
@@ -102,6 +128,8 @@ const SERVICES = [
     points: ["Intelligent Power Management", "Real-Time Performance Monitoring", "Stable Voltage Regulation", "Automatic Backup Switching"],
     img: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=800",
     color: "#078291",
+    cta: { type: "buy", href: "/products" },
+    ctaLabel: "Buy Now!",
   },
   {
     icon: <Wrench className="w-8 h-8" />,
@@ -110,8 +138,57 @@ const SERVICES = [
     points: ["Regular System Inspections", "Battery Health Monitoring", "Performance & Efficiency Reports", "24/7 Technical Support"],
     img: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800",
     color: "#022a30",
+    cta: { type: "contact", phone: "+919876543210" },
+    ctaLabel: "Contact Now!",
   },
 ]
+
+// ── SERVICE CTA BUTTON ────────────────────────────────────────────────────────
+// Same sliding-fill animation as the header's "Get a Quote" button
+function ServiceCtaButton({ service }: { service: Service }) {
+  const { cta, ctaLabel } = service
+
+  const baseClass =
+    "group relative mt-6 w-full overflow-hidden rounded-xl border font-bold text-sm px-5 py-3 flex items-center justify-center gap-2 transition-colors"
+
+  if (cta.type === "buy") {
+    return (
+      <Link
+        to={cta.href}
+        className={`${baseClass} border-[#fcc42c]/60 bg-[#fcc42c]/10 text-[#fcc42c] hover:border-[#fcc42c]`}
+      >
+        <div className="absolute inset-0 w-0 bg-[#fcc42c] transition-all duration-[250ms] ease-out group-hover:w-full" />
+        <ShoppingCart className="relative w-4 h-4 group-hover:text-[#011a1e] transition-colors" />
+        <span className="relative group-hover:text-[#011a1e] transition-colors">{ctaLabel}</span>
+      </Link>
+    )
+  }
+
+  if (cta.type === "consult") {
+    return (
+      <a
+        href={`tel:${cta.phone}`}
+        className={`${baseClass} border-white/20 bg-white/5 text-white hover:border-white/40`}
+      >
+        <div className="absolute inset-0 w-0 bg-white transition-all duration-[250ms] ease-out group-hover:w-full" />
+        <MessageCircle className="relative w-4 h-4 group-hover:text-[#011a1e] transition-colors" />
+        <span className="relative group-hover:text-[#011a1e] transition-colors">{ctaLabel}</span>
+      </a>
+    )
+  }
+
+  // type === "contact"
+  return (
+    <a
+      href={`tel:${cta.phone}`}
+      className={`${baseClass} border-[#04444c] bg-[#04444c]/20 text-white hover:border-[#04444c]`}
+    >
+      <div className="absolute inset-0 w-0 bg-[#04444c] transition-all duration-[250ms] ease-out group-hover:w-full" />
+      <Phone className="relative w-4 h-4 group-hover:text-white transition-colors" />
+      <span className="relative group-hover:text-white transition-colors">{ctaLabel}</span>
+    </a>
+  )
+}
 
 
 const PROCESS = [
@@ -315,9 +392,7 @@ export default function Service() {
                       </li>
                     ))}
                   </ul>
-                  <Link to="#" className="mt-6 flex items-center gap-2 text-[#fcc42c] font-bold text-sm hover:gap-3 transition-all">
-                    Learn More <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  <ServiceCtaButton service={service} />
                 </div>
               </motion.div>
             ))}

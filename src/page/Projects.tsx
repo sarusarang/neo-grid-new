@@ -18,6 +18,7 @@ interface Project {
   co2Offset: string
   desc: string
   img: string
+  images?: string[]
   highlights: string[]
 }
 
@@ -46,6 +47,11 @@ const PROJECTS: Project[] = [
     battery: "30kWh Lithium Battery Storage",
     co2Offset: "12 Tons/yr",
     img: "https://images.unsplash.com/photo-1508514177221-188b1c77eca2?auto=format&fit=crop&q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1508514177221-188b1c77eca2?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&q=80&w=800"
+    ],
     desc: "A premium off-grid home solar installation designed to match the modern architecture of the villa while providing complete energy independence.",
     highlights: ["24/7 Smart Battery Backup", "Zero Dependency on Grid", "App-Based Live Tracking", "Net Zero Footprint"]
   },
@@ -60,6 +66,11 @@ const PROJECTS: Project[] = [
     inverter: "2x 125kW String Inverters",
     co2Offset: "185 Tons/yr",
     img: "https://images.unsplash.com/photo-1592833159057-69de41dbec84?auto=format&fit=crop&q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1592833159057-69de41dbec84?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1508514177221-188b1c77eca2?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=800"
+    ],
     desc: "Large-scale grid-tied solar system to power heavy machinery during peak hours, significantly reducing grid energy cost and boosting green manufacturing credentials.",
     highlights: ["Bifacial Solar Technology", "High Voltage Safety Systems", "Zero Export Controller", "ROI achieved in 3.2 years"]
   },
@@ -74,6 +85,11 @@ const PROJECTS: Project[] = [
     inverter: "80kW Grid-Tie Inverter",
     co2Offset: "64 Tons/yr",
     img: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800"
+    ],
     desc: "Educational institute rooftop installation with net-metering support, generating surplus power sold back to the grid during holidays and weekends.",
     highlights: ["Net-Metering Approval", "Structural Safety Certifications", "Online Monitoring Console", "Student Educational Dashboard"]
   },
@@ -88,6 +104,11 @@ const PROJECTS: Project[] = [
     inverter: "120kW Smart Inverter",
     co2Offset: "96 Tons/yr",
     img: "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1592833159057-69de41dbec84?auto=format&fit=crop&q=80&w=800"
+    ],
     desc: "Sleek elevated rooftop structure designed to allow parking underneath, generating clean power for retail outlets while providing shade for cars.",
     highlights: ["Car-Port Structure Design", "Optimized Parking Layouts", "LED Underlighting Integration", "Zero Maintenance Structure"]
   },
@@ -102,6 +123,11 @@ const PROJECTS: Project[] = [
     inverter: "20kW VFD Solar Pump Inverter",
     co2Offset: "16 Tons/yr",
     img: "https://images.unsplash.com/photo-1615553879069-f8c0f99acf61?auto=format&fit=crop&q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1615553879069-f8c0f99acf61?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1508514177221-188b1c77eca2?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1548613053-220f4a80fb4f?auto=format&fit=crop&q=80&w=800"
+    ],
     desc: "Solar powered microgrid supporting automatic drip irrigation systems and solar water pumping across 15 acres of diverse crop cultivation.",
     highlights: ["Variable Frequency Drive", "Automatic Pump Protection", "Off-grid Battery Backup", "Remotely Monitored Flows"]
   },
@@ -117,6 +143,11 @@ const PROJECTS: Project[] = [
     battery: "120kWh LFP Battery Bank",
     co2Offset: "36 Tons/yr",
     img: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800"
+    ],
     desc: "Hybrid solar system with battery backup and silent diesel generator integration ensuring 24/7 power to luxury eco-villas in dense rain forest terrain.",
     highlights: ["Smart Genset Controller", "Extreme Weather Protection", "LFP High Capacity Batteries", "Cloud Diagnostics Ready"]
   }
@@ -275,6 +306,7 @@ export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All")
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [activeProjectImgIdx, setActiveProjectImgIdx] = useState<number>(0)
   const [selectedGalleryIndex, setSelectedGalleryIndex] = useState<number | null>(null)
   const [direction, setDirection] = useState<number>(0)
 
@@ -372,7 +404,7 @@ export default function Projects() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-none"
           >
-            Project <span className="text-[#fcc42c]">Gallery</span>
+            Project & <span className="text-[#fcc42c]">Gallery</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -509,7 +541,10 @@ export default function Projects() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.4 }}
                     key={project.id}
-                    onClick={() => setSelectedProject(project)}
+                    onClick={() => {
+                      setSelectedProject(project)
+                      setActiveProjectImgIdx(0)
+                    }}
                     className="group cursor-pointer bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-[#fcc42c]/40 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-[#04444c]/20"
                   >
                     {/* Photo area */}
@@ -622,14 +657,6 @@ export default function Projects() {
                         {item.title}
                       </h4>
 
-                      {/* Location — slides up on hover */}
-                      <div className="overflow-hidden">
-                        <div className="flex items-center gap-1.5 text-gray-300 text-xs translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 ease-out mb-1">
-                          <MapPin className="w-3.5 h-3.5 text-[#fcc42c] shrink-0" />
-                          <span className="font-medium">{item.location}</span>
-                        </div>
-                      </div>
-
                       {/* Description — slides up further on hover */}
                       <div className="overflow-hidden">
                         <p className="text-gray-400 text-[11px] leading-relaxed line-clamp-2 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75 ease-out">
@@ -679,92 +706,163 @@ export default function Projects() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="bg-[#022a30] border border-white/10 rounded-3xl max-w-7xl w-full overflow-hidden shadow-2xl relative my-auto flex flex-col md:flex-row h-[90vh] md:h-[580px]"
+              className="bg-[#022a30] border border-white/10 rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative my-auto flex flex-col max-h-[90vh] overflow-y-auto scrollbar-none"
             >
+              {(() => {
+                const projectImages = selectedProject.images && selectedProject.images.length > 0
+                  ? selectedProject.images
+                  : [selectedProject.img]
 
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-50 p-2.5 rounded-full bg-[#011a1e]/80 border border-white/10 text-white hover:bg-white hover:text-[#011a1e] transition-colors shadow-lg"
-              >
-                <X className="w-5 h-5" />
-              </button>
+                return (
+                  <>
+                    {/* Close Button */}
+                    <button
+                      onClick={() => setSelectedProject(null)}
+                      className="absolute top-4 right-4 z-50 p-2.5 rounded-full bg-[#011a1e]/80 border border-white/10 text-white hover:bg-white hover:text-[#011a1e] transition-colors shadow-lg cursor-pointer"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
 
-              {/* Photo Column */}
-              <div className="w-full md:w-1/2 relative h-[35%] md:h-full shrink-0 overflow-hidden bg-[#011a1e]">
-                <img
-                  src={selectedProject.img}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover absolute inset-0"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/30 to-transparent" />
+                    {/* Full Size Image / Carousel Section */}
+                    <div className="w-full relative aspect-video md:h-[420px] shrink-0 overflow-hidden bg-[#011a1e] border-b border-white/5">
+                      <AnimatePresence mode="wait">
+                        <motion.img
+                          key={activeProjectImgIdx}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          src={projectImages[activeProjectImgIdx]}
+                          alt={selectedProject.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </AnimatePresence>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
-                {/* Floating Specs */}
-                <div className="absolute bottom-6 left-6 right-6">
-                  <p className="text-[#fcc42c] text-xs font-black uppercase tracking-widest mb-1">{selectedProject.category}</p>
-                  <h2 className="text-2xl md:text-3xl font-black text-white leading-tight mb-2">{selectedProject.title}</h2>
-                  <div className="flex items-center gap-1 text-xs text-white/80">
-                    <MapPin className="w-4 h-4 text-[#fcc42c]" /> {selectedProject.location}
-                  </div>
-                </div>
-              </div>
+                      {/* Navigation Chevrons if multi-image */}
+                      {projectImages.length > 1 && (
+                        <>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveProjectImgIdx(prev => (prev - 1 + projectImages.length) % projectImages.length);
+                            }}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 border border-white/10 text-white hover:bg-[#fcc42c] hover:text-[#011a1e] transition-colors z-20 cursor-pointer"
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveProjectImgIdx(prev => (prev + 1) % projectImages.length);
+                            }}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 border border-white/10 text-white hover:bg-[#fcc42c] hover:text-[#011a1e] transition-colors z-20 cursor-pointer"
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
 
-              {/* Details Column */}
-              <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col h-[65%] md:h-full overflow-y-auto">
-                <span className="inline-flex items-center gap-1.5 bg-[#fcc42c]/10 text-[#fcc42c] text-xs font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full self-start mb-6 border border-[#fcc42c]/20">
-                  System Size: {selectedProject.capacity}
-                </span>
-
-                <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                  {selectedProject.desc}
-                </p>
-
-                {/* Technical Specs List */}
-                <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-3.5 border-b border-white/5 pb-2">Technical Specifications</h4>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-white/5 rounded-xl p-3.5 border border-white/5">
-                    <p className="text-[10px] uppercase text-gray-400 font-bold tracking-wider mb-1">Solar Panels</p>
-                    <p className="text-xs md:text-sm text-white font-bold">{selectedProject.panels}</p>
-                  </div>
-                  <div className="bg-white/5 rounded-xl p-3.5 border border-white/5">
-                    <p className="text-[10px] uppercase text-gray-400 font-bold tracking-wider mb-1">Inverter System</p>
-                    <p className="text-xs md:text-sm text-white font-bold">{selectedProject.inverter}</p>
-                  </div>
-                  {selectedProject.battery && (
-                    <div className="bg-white/5 rounded-xl p-3.5 border border-white/5">
-                      <p className="text-[10px] uppercase text-gray-400 font-bold tracking-wider mb-1">Battery Storage</p>
-                      <p className="text-xs md:text-sm text-white font-bold">{selectedProject.battery}</p>
+                          {/* Dots Indicators */}
+                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+                            {projectImages.map((_, i) => (
+                              <button
+                                key={i}
+                                onClick={() => setActiveProjectImgIdx(i)}
+                                className={`w-2 h-2 rounded-full transition-all cursor-pointer ${
+                                  activeProjectImgIdx === i ? "bg-[#fcc42c] w-5" : "bg-white/40 hover:bg-white/70"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
                     </div>
-                  )}
-                  <div className="bg-white/5 rounded-xl p-3.5 border border-white/5">
-                    <p className="text-[10px] uppercase text-gray-400 font-bold tracking-wider mb-1">CO2 Offset</p>
-                    <p className="text-xs md:text-sm text-[#fcc42c] font-black">{selectedProject.co2Offset}</p>
-                  </div>
-                </div>
 
-                {/* Highlights checklist */}
-                <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-3.5 border-b border-white/5 pb-2">Key Highlights</h4>
-                <ul className="flex flex-col gap-2.5 mb-8">
-                  {selectedProject.highlights.map((h) => (
-                    <li key={h} className="flex items-center gap-2.5 text-xs md:text-sm text-gray-300">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#fcc42c]" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
+                    {/* Details content below */}
+                    <div className="p-6 md:p-10 flex flex-col gap-8">
+                      {/* Top Meta Line: Badges & Date */}
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="bg-[#04444c]/80 text-[#fcc42c] text-[10px] font-extrabold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-white/10">
+                          {selectedProject.category}
+                        </span>
+                        <span className="bg-[#fcc42c] text-[#011a1e] text-[10px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-md">
+                          System Size: {selectedProject.capacity}
+                        </span>
+                        <span className="flex items-center gap-1.5 text-xs text-gray-400 font-bold ml-auto sm:ml-0">
+                          <Calendar className="w-4 h-4 text-[#fcc42c]" /> {selectedProject.year}
+                        </span>
+                      </div>
 
-                {/* Consultation CTA */}
-                <div className="mt-auto">
-                  <button
-                    onClick={() => { setSelectedProject(null); }}
-                    className="w-full bg-[#fcc42c] hover:bg-white text-[#011a1e] font-black py-3.5 rounded-xl transition-colors text-xs uppercase tracking-wider flex items-center justify-center gap-2"
-                  >
-                    Inquire About Similar Setup <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
+                      {/* Title & Location */}
+                      <div className="flex flex-col gap-2">
+                        <h2 className="text-2xl md:text-4xl font-black text-white leading-tight">
+                          {selectedProject.title}
+                        </h2>
+                        <div className="flex items-center gap-1.5 text-sm text-gray-400 font-medium">
+                          <MapPin className="w-4 h-4 text-[#fcc42c]" />
+                          <span>{selectedProject.location}</span>
+                        </div>
+                      </div>
 
-              </div>
+                      {/* Description */}
+                      <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+                        {selectedProject.desc}
+                      </p>
 
+                      {/* Technical specifications */}
+                      <div>
+                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-white/5 pb-2">
+                          Technical Specifications
+                        </h4>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                          <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                            <p className="text-[10px] uppercase text-gray-400 font-bold tracking-wider mb-1">Solar Panels</p>
+                            <p className="text-xs md:text-sm text-white font-bold">{selectedProject.panels}</p>
+                          </div>
+                          <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                            <p className="text-[10px] uppercase text-gray-400 font-bold tracking-wider mb-1">Inverter System</p>
+                            <p className="text-xs md:text-sm text-white font-bold">{selectedProject.inverter}</p>
+                          </div>
+                          {selectedProject.battery && (
+                            <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                              <p className="text-[10px] uppercase text-gray-400 font-bold tracking-wider mb-1">Battery Storage</p>
+                              <p className="text-xs md:text-sm text-white font-bold">{selectedProject.battery}</p>
+                            </div>
+                          )}
+                          <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                            <p className="text-[10px] uppercase text-gray-400 font-bold tracking-wider mb-1">CO2 Offset</p>
+                            <p className="text-xs md:text-sm text-[#fcc42c] font-black">{selectedProject.co2Offset}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Key Highlights */}
+                      <div>
+                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-white/5 pb-2">
+                          Key Highlights
+                        </h4>
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          {selectedProject.highlights.map((h) => (
+                            <li key={h} className="flex items-center gap-3 text-xs md:text-sm text-gray-300">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#fcc42c] shrink-0" />
+                              {h}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Action CTA */}
+                      <div className="mt-4 pt-6 border-t border-white/5">
+                        <button
+                          onClick={() => { setSelectedProject(null); }}
+                          className="w-full md:w-auto bg-[#fcc42c] hover:bg-white text-[#011a1e] font-black px-8 py-3.5 rounded-full transition-colors text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                          Inquire About Similar Setup <ArrowRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )
+              })()}
             </motion.div>
           </motion.div>
         )}
@@ -871,12 +969,6 @@ export default function Projects() {
                   <span className="bg-[#fcc42c]/10 border border-[#fcc42c]/30 text-[#fcc42c] text-[10px] font-black uppercase px-3 py-1 rounded-full">
                     {filteredGalleryImages[selectedGalleryIndex].category}
                   </span>
-                  {filteredGalleryImages[selectedGalleryIndex].location && (
-                    <span className="bg-white/5 border border-white/10 text-gray-300 text-[10px] font-bold uppercase px-3 py-1 rounded-full flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-[#fcc42c]" />
-                      {filteredGalleryImages[selectedGalleryIndex].location}
-                    </span>
-                  )}
                 </div>
 
                 <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-2">

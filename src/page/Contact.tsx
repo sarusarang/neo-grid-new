@@ -1,27 +1,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MapPin, Phone, Mail, Clock, ArrowRight, HelpCircle, CheckCircle } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, ArrowRight, CheckCircle } from "lucide-react"
 
-// ─── DATA ────────────────────────────────────────────────────────────────────
-
-const FAQS = [
-  {
-    q: "How long does a typical installation take?",
-    a: "For residential rooftops (3kW to 10kW), physical installation is completed in as little as 1 to 2 working days. However, grid integration and DISCOM net-metering approvals can take between 2 to 4 weeks depending on authority timelines."
-  },
-  {
-    q: "Do you help with government subsidies?",
-    a: "Yes, absolutely! We handle the entire application process for the PM-Surya Ghar Muft Bijli Yojana (or other state subsidies) including document submission, site feasibility audits, and commissioning reports to ensure your subsidy is processed smoothly."
-  },
-  {
-    q: "What is the lifespan of a solar grid system?",
-    a: "Tier-1 solar panels come with a 25-year performance warranty, meaning they will still produce at least 80-85% of their original capacity after 25 years. Inverters generally have a lifespan of 10 to 15 years, and battery systems last between 8 to 12 years."
-  },
-  {
-    q: "Is my roof suitable for solar panels?",
-    a: "Most roofs that have concrete/slab, metal sheet, or tile structure are suitable. The main factor is shadow-free space (facing south or east-west). During our free site visit, we conduct structural analysis and shade analysis to design the optimum configuration."
-  }
-]
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -32,7 +12,6 @@ export default function Contact() {
     message: ""
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [activeFaq, setActiveFaq] = useState<number | null>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -328,60 +307,6 @@ export default function Contact() {
             />
             {/* Styled overlay to blend the map border */}
             <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10 rounded-3xl" />
-          </div>
-        </div>
-      </section>
-
-      {/* ── FAQ ACCORDION SECTION ─────────────────────────────────── */}
-      <section className="py-20 bg-[#022a30]">
-        <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
-          <div className="text-center mb-14">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-extrabold text-white mb-4"
-            >
-              Frequently Asked <span className="text-[#fcc42c]">Questions</span>
-            </motion.h2>
-            <p className="text-gray-400 text-sm md:text-base">Everything you need to know before installing solar panels on your property.</p>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            {FAQS.map((faq, index) => (
-              <div
-                key={index}
-                className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300"
-              >
-                <button
-                  onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left font-bold text-sm md:text-base hover:bg-white/5 transition-colors group"
-                >
-                  <span className="flex items-center gap-3">
-                    <HelpCircle className="w-5 h-5 text-[#fcc42c] shrink-0" />
-                    <span className="group-hover:text-[#fcc42c] transition-colors">{faq.q}</span>
-                  </span>
-                  <span className="text-[#fcc42c] font-black text-xl shrink-0 ml-4">
-                    {activeFaq === index ? "−" : "+"}
-                  </span>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {activeFaq === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="px-6 pb-6 pt-1 border-t border-white/5 text-xs md:text-sm text-gray-300 leading-relaxed">
-                        {faq.a}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
           </div>
         </div>
       </section>

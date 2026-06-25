@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { ShieldCheck, CloudLightning, Wrench, CircleGauge } from "lucide-react"
+import { ShieldCheck, CloudLightning, Wrench, CircleGauge, ArrowRight } from "lucide-react"
 
 
 
@@ -35,7 +35,7 @@ export default function FeaturesGridSection() {
   return (
 
 
-    <section className="py-14 bg-[#011a1e] relative overflow-hidden">
+    <section className="py-14 bg-[#011a1e] relative overflow-hidden border-b border-white/10">
 
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -62,8 +62,8 @@ export default function FeaturesGridSection() {
                 More than an inverter, LI-ON is a next-generation lithium backup system built from the ground up to deliver reliable, efficient, and uninterrupted energy in a compact design.
               </p>
 
-              <button className="px-8 py-4 border-2 border-[#fcc42c] text-[#fcc42c] rounded-full font-bold hover:bg-[#fcc42c] hover:text-[#011a1e] transition-all">
-                Explore the Tech
+              <button className="px-8 flex items-center justify-between gap-2 py-4 border-2 border-[#fcc42c] text-[#fcc42c] rounded-full font-bold hover:bg-[#fcc42c] hover:text-[#011a1e] transition-all">
+                Explore Solar Products <ArrowRight className="mt-1" />
               </button>
 
             </motion.div>

@@ -110,7 +110,7 @@ export default function ServicesSection() {
           </div>
 
           <button className="self-start md:self-end flex items-center gap-3 bg-[#04444c] text-white px-6 py-3.5 rounded-full font-bold hover:bg-[#078291] transition-all group">
-            View Services
+            Get More Info
             <span className="w-8 h-8 rounded-full bg-[#fcc42c] flex items-center justify-center group-hover:rotate-45 transition-transform">
               <ArrowUpRight className="w-4 h-4 text-[#011a1e]" />
             </span>
@@ -217,7 +217,7 @@ export default function ServicesSection() {
                     transition={{ duration: 0.3 }}
                     className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold border"
                   >
-                    View Details
+                    Contact Now!
 
                     <ArrowUpRight className="w-4 h-4" />
 
