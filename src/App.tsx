@@ -2,7 +2,8 @@ import { Suspense, lazy } from "react"
 import { Route, Routes } from "react-router-dom"
 import ProtectedRoute from "./components/common/ProtectedRoute"
 import { Toaster } from "sonner"
-
+import ScrollToTop from "./components/common/ScrollToTop"
+import PageLoader from "./components/loaders/PageLoader"
 
 
 // lazy loaded routes
@@ -14,6 +15,8 @@ const Products = lazy(() => import("./page/Products"))
 const ProductDetail = lazy(() => import("./page/ProductDetail"))
 const Cart = lazy(() => import("./page/Cart"))
 const MyAccount = lazy(() => import("./page/MyAccount"))
+const NotFound = lazy(() => import("./page/NotFound"))
+const StoreLocator = lazy(() => import("./page/StoreLocator"))
 
 
 // layout
@@ -27,15 +30,10 @@ function App() {
   return (
 
 
-    <Suspense fallback={
-      <div className="min-h-screen bg-[#011a1e] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-2 border-white/10 border-t-[#fcc42c] rounded-full animate-spin" />
-          <p className="text-gray-400 text-sm">Loading NeoGrid...</p>
-        </div>
-      </div>
-    }>
+    <Suspense fallback={<PageLoader />}>
 
+      <ScrollToTop />
+      
       <Routes>
       
         <Route path="/" element={<MainLayout />}>
@@ -64,8 +62,13 @@ function App() {
               <MyAccount />
             </ProtectedRoute>
           } />
+
+          <Route path="/store-locator" element={<StoreLocator />} />
       
         </Route>
+
+        {/* 404 catch-all */}
+        <Route path="*" element={<NotFound />} />
       
       </Routes>
 

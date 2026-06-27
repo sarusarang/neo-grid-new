@@ -1,11 +1,21 @@
 import { RotateCcw, SearchX, ServerCrash } from "lucide-react"
 
+
+
+// Props for ProductGridSkeleton component
 interface ProductGridSkeletonProps {
   layoutMode: "grid" | "list"
 }
 
+
+
+
+
+// Loading skeleton for product grid
 export function ProductGridSkeleton({ layoutMode }: ProductGridSkeletonProps) {
+
   return (
+
     <div
       className={
         layoutMode === "grid"
@@ -13,38 +23,55 @@ export function ProductGridSkeleton({ layoutMode }: ProductGridSkeletonProps) {
           : "flex flex-col gap-5"
       }
     >
+
       {[...Array(layoutMode === "grid" ? 6 : 4)].map((_, index) => (
+
         <div
           key={index}
-          className={`overflow-hidden rounded-lg border border-white/10 bg-white/5 ${
-            layoutMode === "grid" ? "" : "md:flex"
-          }`}
-        >
-          <div
-            className={`bg-white/8 animate-pulse ${
-              layoutMode === "grid" ? "aspect-[4/3] w-full" : "aspect-[4/3] w-full md:w-80"
+          className={`overflow-hidden rounded-lg border border-white/10 bg-white/5 ${layoutMode === "grid" ? "" : "md:flex"
             }`}
+        >
+
+          <div
+            className={`bg-white/8 animate-pulse ${layoutMode === "grid" ? "aspect-4/3 w-full" : "aspect-4/3 w-full md:w-80"
+              }`}
           />
+
           <div className="flex-1 p-5 sm:p-6">
+
             <div className="mb-4 flex gap-2">
               <span className="h-6 w-28 rounded-full bg-white/10 animate-pulse" />
               <span className="h-6 w-24 rounded-full bg-white/8 animate-pulse" />
             </div>
+
             <div className="mb-3 h-6 w-3/4 rounded bg-white/12 animate-pulse" />
+
             <div className="mb-5 h-3 w-36 rounded bg-white/8 animate-pulse" />
+
             <div className="mb-3 h-8 w-32 rounded bg-[#fcc42c]/20 animate-pulse" />
+
             <div className="space-y-2">
               <div className="h-3 w-full rounded bg-white/8 animate-pulse" />
               <div className="h-3 w-5/6 rounded bg-white/8 animate-pulse" />
               <div className="h-3 w-2/3 rounded bg-white/8 animate-pulse" />
             </div>
+
           </div>
+
         </div>
+
       ))}
+
     </div>
+
   )
+
 }
 
+
+
+
+// Error message for products
 export function ProductsErrorState({ onRetry }: { onRetry: () => void }) {
   return (
     <div className="rounded-lg border border-red-500/25 bg-red-500/10 px-5 py-12 text-center">
@@ -64,6 +91,9 @@ export function ProductsErrorState({ onRetry }: { onRetry: () => void }) {
   )
 }
 
+
+
+// Empty message for products
 export function ProductsEmptyState({ onReset }: { onReset: () => void }) {
   return (
     <div className="rounded-lg border border-dashed border-[#fcc42c]/35 bg-[#fcc42c]/8 px-5 py-16 text-center">

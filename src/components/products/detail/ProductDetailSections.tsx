@@ -2,12 +2,16 @@ import { useMemo, useState } from "react"
 import { BadgeInfo, FileText, ShieldCheck, Wrench } from "lucide-react"
 import type { Product } from "../../../service/product/types"
 
+
+// Props interface for ProductHtmlSection component
 interface ProductHtmlSectionProps {
   title: string
   html?: string
   fallback: string
 }
 
+
+// ProductHtmlSection component for displaying product information
 function ProductHtmlSection({ title, html, fallback }: ProductHtmlSectionProps) {
   return (
     <section className="rounded-lg border border-white/10 bg-white/5 p-4 sm:p-5">
@@ -24,13 +28,22 @@ function ProductHtmlSection({ title, html, fallback }: ProductHtmlSectionProps) 
   )
 }
 
+
+// Product tab id enum
 type ProductTabId = "description" | "additional" | "technical" | "warranty"
 
+
+// Props interface for ProductDetailSections component
 interface ProductDetailSectionsProps {
   product: Product
 }
 
+
+// ProductDetailSections component for displaying product information
 export default function ProductDetailSections({ product }: ProductDetailSectionsProps) {
+
+
+  // Product tabs
   const tabs = useMemo(() => [
     {
       id: "description" as ProductTabId,
@@ -61,35 +74,52 @@ export default function ProductDetailSections({ product }: ProductDetailSections
       fallback: "Warranty information will be updated soon.",
     },
   ], [product])
+
+
+  // Active tab state
   const [activeTab, setActiveTab] = useState<ProductTabId>(tabs[0]?.id ?? "description")
-  const selectedTab = tabs.find(tab => tab.id === activeTab) ?? tabs[0]
+
+  // Selected tab
+  const selectedTab = tabs?.find(tab => tab?.id === activeTab) ?? tabs[0]
+
 
   if (!selectedTab) return null
 
+
+
   return (
+
     <section className="mt-8 sm:mt-12">
+
       <div className="mb-4 flex gap-2 overflow-x-auto border-b border-white/10 pb-2 scrollbar-hide sm:mb-5">
-        {tabs.map(tab => {
-          const isActive = tab.id === selectedTab.id
+
+        {tabs?.map(tab => {
+
+          const isActive = tab?.id === selectedTab?.id
 
           return (
+
             <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2.5 text-[10px] font-black uppercase tracking-wider transition-colors sm:px-4 sm:py-3 sm:text-xs ${
-                isActive
-                  ? "bg-[#fcc42c] text-[#011a1e]"
-                  : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
-              }`}
+              key={tab?.id}
+              onClick={() => setActiveTab(tab?.id)}
+              className={`inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2.5 text-[10px] font-black uppercase tracking-wider transition-colors sm:px-4 sm:py-3 sm:text-xs ${isActive
+                ? "bg-[#fcc42c] text-[#011a1e]"
+                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
+                }`}
             >
-              {tab.icon}
-              {tab.label}
+              {tab?.icon}
+              {tab?.label}
+
             </button>
           )
         })}
+
       </div>
 
-      <ProductHtmlSection title={selectedTab.label} html={selectedTab.html} fallback={selectedTab.fallback} />
+      <ProductHtmlSection title={selectedTab?.label} html={selectedTab?.html} fallback={selectedTab?.fallback} />
+
     </section>
+
   )
+
 }

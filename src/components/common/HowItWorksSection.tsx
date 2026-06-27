@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 
 
 
-const STEPS = [
+const STEPS: { num: string, title: string, desc: string }[] = [
   {
     num: "01",
     title: "Power Needs Assessment",
@@ -24,13 +24,19 @@ const STEPS = [
 
 
 export default function HowItWorksSection() {
+
   return (
-    <section className="py-20 bg-[#011a1e] relative overflow-hidden">
+
+    <section className="py-10 sm:py-14 bg-[#011a1e] relative overflow-hidden">
+
+
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#fcc42c]/5 rounded-full blur-[150px] pointer-events-none" />
-      
+
+
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <motion.h2 
+
+        <div className="text-center mb-8 sm:mb-16">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

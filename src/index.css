@@ -199,29 +199,19 @@
   }
 }
 
-@layer components {
-  .product-image-zoom {
-    height: 100%;
-    width: 100%;
-  }
-
-  .product-image-zoom .iiz__img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-  }
-
-  .product-image-zoom .iiz__zoom-img {
-    background-color: #011518;
-  }
-
-  .iiz__zoom-portal {
-    background-color: #011a1e;
+@layer base {
+  /* Global: every button / interactive element shows pointer cursor */
+  button,
+  [role="button"],
+  [type="button"],
+  [type="submit"],
+  [type="reset"],
+  label[for],
+  select {
+    cursor: pointer;
   }
 }
 
 *{
-
   font-family: serif
-
 }

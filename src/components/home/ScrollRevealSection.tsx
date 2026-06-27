@@ -25,7 +25,7 @@ export default function ScrollRevealSection() {
   return (
 
 
-    <section ref={containerRef} className="py-20 bg-gray-50 flex justify-center items-center overflow-hidden min-h-[70vh]">
+    <section ref={containerRef} className="py-10 sm:py-16 bg-gray-50 flex justify-center items-center overflow-hidden min-h-[70vh]">
 
 
       <motion.div

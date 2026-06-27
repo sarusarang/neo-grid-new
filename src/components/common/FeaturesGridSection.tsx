@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { ShieldCheck, CloudLightning, Wrench, CircleGauge, ArrowRight } from "lucide-react"
+import { Link } from "react-router-dom"
 
 
 
@@ -35,14 +36,13 @@ export default function FeaturesGridSection() {
   return (
 
 
-    <section className="py-14 bg-[#011a1e] relative overflow-hidden border-b border-white/10">
+    <section className="py-5 sm:py-14 bg-[#011a1e] relative overflow-hidden border-b border-white/10">
 
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
 
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center">
 
           <div>
 
@@ -53,7 +53,7 @@ export default function FeaturesGridSection() {
               transition={{ duration: 0.8 }}
             >
 
-              <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-3 sm:mb-6 leading-tight">
                 Technology That <br />
                 <span className="text-[#fcc42c]">Works For You</span>
               </h2>
@@ -62,9 +62,11 @@ export default function FeaturesGridSection() {
                 More than an inverter, LI-ON is a next-generation lithium backup system built from the ground up to deliver reliable, efficient, and uninterrupted energy in a compact design.
               </p>
 
-              <button className="px-8 flex items-center justify-between gap-2 py-4 border-2 border-[#fcc42c] text-[#fcc42c] rounded-full font-bold hover:bg-[#fcc42c] hover:text-[#011a1e] transition-all">
-                Explore Solar Products <ArrowRight className="mt-1" />
-              </button>
+              <Link to="/products">
+                <button className="px-8 flex items-center justify-between gap-2 py-4 border-2 border-[#fcc42c] text-[#fcc42c] rounded-full font-bold hover:bg-[#fcc42c] hover:text-[#011a1e] transition-all">
+                  Explore Solar Products <ArrowRight className="mt-1" />
+                </button>
+              </Link>
 
             </motion.div>
 

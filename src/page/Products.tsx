@@ -5,11 +5,7 @@ import ProductCard from "../components/products/ProductCard"
 import ProductCategoryStrip from "../components/products/ProductCategoryStrip"
 import ProductFilters from "../components/products/ProductFilters"
 import ProductHero from "../components/products/ProductHero"
-import {
-  ProductGridSkeleton,
-  ProductsEmptyState,
-  ProductsErrorState,
-} from "../components/products/ProductListStates"
+import { ProductGridSkeleton, ProductsEmptyState, ProductsErrorState } from "../components/loaders/ProductListStates"
 import ProductPagination from "../components/products/ProductPagination"
 import { useProductListing } from "../components/products/useProductListing"
 
@@ -51,6 +47,7 @@ export default function Products() {
     <div className="min-h-screen bg-[#011a1e] text-white selection:bg-[#fcc42c] selection:text-[#011a1e]">
 
 
+      {/* Product Hero Component */}
       <ProductHero
         title={hero?.title}
         description={hero?.description}
@@ -63,6 +60,7 @@ export default function Products() {
       />
 
 
+      {/* Product Category Strip Component */}
       <ProductCategoryStrip
         departments={departments}
         selectedDepartment={selectedDepartment}
@@ -75,13 +73,14 @@ export default function Products() {
       />
 
 
+      {/* Product Filters Component */}
       <ProductFilters
         selectedDepartment={selectedDepartment}
         selectedFamily={selectedFamily}
         priceRange={priceRange}
         departmentOptions={departmentOptions}
         familyOptions={familyOptions}
-        activeIcon={getCategoryIcon(selectedDepartment || hero.title)}
+        activeIcon={getCategoryIcon(selectedDepartment || hero?.title)}
         filtersLoading={filtersQuery?.isLoading}
         filtersError={filtersQuery?.isError}
         hasActiveFilters={hasActiveFilters}
@@ -93,7 +92,7 @@ export default function Products() {
       />
 
 
-      <section className="py-10 sm:py-14">
+      <section className="py-5 sm:py-14">
 
         <div className="container mx-auto px-4 lg:px-8">
 
@@ -102,12 +101,12 @@ export default function Products() {
             <div>
 
               <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-[#fcc42c]">
-                {productsQuery.isLoading
+                {productsQuery?.isLoading
                   ? "Loading products"
-                  : `${hero.resultCount} result${hero.resultCount === 1 ? "" : "s"}`}
+                  : `${hero?.resultCount} result${hero?.resultCount === 1 ? "" : "s"}`}
               </p>
 
-              <h2 className="text-2xl font-black text-white sm:text-3xl">{hero.title}</h2>
+              <h2 className="text-2xl font-black text-white sm:text-3xl">{hero?.title}</h2>
 
             </div>
 
@@ -184,16 +183,24 @@ export default function Products() {
                     : "flex flex-col gap-5"
                 }
               >
-                {products.map(product => (
-                  <ProductCard key={product.id} product={product} layoutMode={layoutMode} />
+                {products?.map(product => (
+                  <ProductCard key={product?.id} product={product} layoutMode={layoutMode} />
                 ))}
               </div>
 
               {meta && <ProductPagination meta={meta} onPageChange={handlePageChange} />}
+
             </>
+
           )}
+
+
         </div>
+
       </section>
+
     </div>
+
   )
+
 }

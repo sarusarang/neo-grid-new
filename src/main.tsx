@@ -7,8 +7,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import { AuthProvider } from './context/AuthContext.tsx'
 import { CartProvider } from './context/CartContext.tsx'
 
-
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -18,32 +16,16 @@ const queryClient = new QueryClient({
   },
 })
 
-
 createRoot(document.getElementById('root')!).render(
-
-
   <BrowserRouter>
-
     <QueryClientProvider client={queryClient}>
-
-      <AuthProvider>
-
-        <CartProvider>
-
-          <GoogleOAuthProvider clientId="960109017160-cq8bfuipogu6ubk3mc5pjkhaql0jiuu5.apps.googleusercontent.com">
-
+      <GoogleOAuthProvider clientId="960109017160-cq8bfuipogu6ubk3mc5pjkhaql0jiuu5.apps.googleusercontent.com">
+        <AuthProvider>
+          <CartProvider>
             <App />
-
-          </GoogleOAuthProvider>
-
-        </CartProvider>
-
-      </AuthProvider>
-
+          </CartProvider>
+        </AuthProvider>
+      </GoogleOAuthProvider>
     </QueryClientProvider>
-
   </BrowserRouter>
-
-
-
 )

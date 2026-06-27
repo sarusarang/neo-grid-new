@@ -1,133 +1,178 @@
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useCallback, type ReactNode } from "react"
+import { useAuth } from "./AuthContext"
+import {
+  useGetCart,
+  useAddToCart,
+  useUpdateCartItem,
+  useDeleteCartItem,
+  useClearCart,
+} from "../service/cart/useCart"
+import type { CartResponse, CartItem as ApiCartItem } from "../service/cart/types"
+import { resolveMediaUrl } from "../components/products/productUtils"
 
 export interface CartItem {
-  id: string
-  productId: string
+  id: string | number
+  productId: string | number
   name: string
   image: string
   price: number
   originalPrice: number
   quantity: number
+  modelType?: string
+  modelNumber?: string
   size?: string
   color?: string
   category?: string
+  rawApiItem?: ApiCartItem
 }
 
 interface CartContextValue {
   items: CartItem[]
   itemCount: number
   subtotal: number
-  addToCart: (item: Omit<CartItem, "id" | "quantity"> & { quantity?: number }) => void
-  removeFromCart: (id: string) => void
-  updateQty: (id: string, qty: number) => void
-  clearCart: () => void
-  isInCart: (productId: string, size?: string) => boolean
+  totalDiscount: number
+  originalAmount: number
+  shippingCharge: number
+  isLoading: boolean
+  isError: boolean
+  cartResponse: CartResponse | undefined
+  addToCart: (item: { productId: string | number; name?: string; image?: string; price?: number; originalPrice?: number; category?: string; size?: string; quantity?: number }) => Promise<void>
+  removeFromCart: (id: string | number) => Promise<void>
+  updateQty: (id: string | number, qty: number) => Promise<void>
+  clearCart: () => Promise<void>
+  isInCart: (productId: string | number, size?: string) => boolean
+  refetchCart: () => void
 }
 
 const CartContext = createContext<CartContextValue | null>(null)
-const STORAGE_KEY = "neogrid_cart"
-
-const makeId = (productId: string, size?: string) =>
-  `${productId}${size ? `_${size}` : ""}`
-
-// ── DUMMY PRODUCTS for demo cart ────────────────────────────────────────────────
-const DUMMY_CART_ITEMS: CartItem[] = [
-  {
-    id: "mono-panel-550w_550W",
-    productId: "mono-panel-550w",
-    name: "Monocrystalline Solar Panel",
-    image: "/solar-panel.png",
-    price: 18500,
-    originalPrice: 22000,
-    quantity: 4,
-    size: "550W",
-    category: "panels",
-  },
-  {
-    id: "hybrid-inverter-5kw_5kW",
-    productId: "hybrid-inverter-5kw",
-    name: "Hybrid Solar Inverter",
-    image: "/solar-panel.png",
-    price: 42000,
-    originalPrice: 48000,
-    quantity: 1,
-    size: "5kW",
-    category: "inverters",
-  },
-  {
-    id: "lithium-battery-10kwh",
-    productId: "lithium-battery-10kwh",
-    name: "Lithium Battery Storage",
-    image: "/solar-panel.png",
-    price: 65000,
-    originalPrice: 72000,
-    quantity: 1,
-    category: "batteries",
-  },
-]
-
-const loadItems = (): CartItem[] => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
-      const parsed = JSON.parse(stored) as CartItem[]
-      // Return stored if it has items, otherwise seed with dummy
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed
-    }
-  } catch { /* ignore */ }
-  // First time — seed with dummy products
-  return DUMMY_CART_ITEMS
-}
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(loadItems)
+  const { user, openAuthModal } = useAuth()
 
-  // Sync to localStorage on every change
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-  }, [items])
+  // React Query hooks
+  const { data: cartResponse, isLoading, isError, refetch } = useGetCart({ enabled: Boolean(user) })
+  const addToCartMutation = useAddToCart()
+  const updateCartItemMutation = useUpdateCartItem()
+  const deleteCartItemMutation = useDeleteCartItem()
+  const clearCartMutation = useClearCart()
 
+  // Map API cart response to clean UI CartItem array
+  const apiItems: ApiCartItem[] = cartResponse?.data?.[0]?.items || []
+
+  const items: CartItem[] = apiItems.map((apiItem) => {
+    const p = apiItem.product
+    const firstImg = p?.images?.[0]?.image ? resolveMediaUrl(p.images[0].image) : "/solar-panel.png"
+    const price = Number(p?.discount_price) > 0 ? Number(p.discount_price) : Number(p?.price || 0)
+    const originalPrice = Number(p?.price || price)
+    
+    // Family / category details
+    const categoryName = typeof p?.family === "object" && p?.family !== null
+      ? (p.family.department?.name || p.family.name || "")
+      : ""
+
+    return {
+      id: apiItem.id,
+      productId: p?.id || apiItem.id,
+      name: p?.name || "Solar Product",
+      image: firstImg,
+      price,
+      originalPrice,
+      quantity: apiItem.quantity,
+      modelType: p?.model_type || "",
+      modelNumber: p?.model_number || "",
+      size: p?.model_number || "",
+      category: categoryName || p?.model_type || "",
+      rawApiItem: apiItem,
+    }
+  })
+
+  const itemCount = cartResponse?.total_products ?? items.reduce((sum, i) => sum + i.quantity, 0)
+  const subtotal = cartResponse?.total_amount ?? items.reduce((sum, i) => sum + i.price * i.quantity, 0)
+  const totalDiscount = cartResponse?.total_discount ?? 0
+  const originalAmount = cartResponse?.orginal_amount ?? cartResponse?.original_amount ?? (subtotal + totalDiscount)
+  const shippingCharge = cartResponse?.shipping_charge ?? 0
+
+  // Add to cart handler
   const addToCart = useCallback(
-    (item: Omit<CartItem, "id" | "quantity"> & { quantity?: number }) => {
-      const id = makeId(item.productId, item.size)
-      setItems(prev => {
-        const existing = prev.find(i => i.id === id)
-        if (existing) {
-          return prev.map(i =>
-            i.id === id ? { ...i, quantity: i.quantity + (item.quantity ?? 1) } : i
-          )
-        }
-        return [...prev, { ...item, id, quantity: item.quantity ?? 1 }]
+    async (item: { productId: string | number; name?: string; image?: string; price?: number; originalPrice?: number; category?: string; size?: string; quantity?: number }) => {
+      if (!user) {
+        openAuthModal("login")
+        return
+      }
+      await addToCartMutation.mutateAsync({
+        product_id: item.productId,
+        quantity: item.quantity ?? 1,
       })
     },
-    []
+    [user, openAuthModal, addToCartMutation]
   )
 
-  const removeFromCart = useCallback((id: string) => {
-    setItems(prev => prev.filter(i => i.id !== id))
-  }, [])
+  // Remove single item handler
+  const removeFromCart = useCallback(
+    async (id: string | number) => {
+      if (!user) {
+        openAuthModal("login")
+        return
+      }
+      await deleteCartItemMutation.mutateAsync(id)
+    },
+    [user, openAuthModal, deleteCartItemMutation]
+  )
 
-  const updateQty = useCallback((id: string, qty: number) => {
-    if (qty < 1) return
-    setItems(prev => prev.map(i => (i.id === id ? { ...i, quantity: qty } : i)))
-  }, [])
+  // Update quantity handler
+  const updateQty = useCallback(
+    async (id: string | number, qty: number) => {
+      if (!user) {
+        openAuthModal("login")
+        return
+      }
+      if (qty < 1) {
+        await removeFromCart(id)
+        return
+      }
+      await updateCartItemMutation.mutateAsync({
+        item_id: id,
+        quantity: qty,
+      })
+    },
+    [user, openAuthModal, updateCartItemMutation, removeFromCart]
+  )
 
-  const clearCart = useCallback(() => setItems([]), [])
+  // Clear entire cart handler
+  const clearCart = useCallback(async () => {
+    if (!user) {
+      openAuthModal("login")
+      return
+    }
+    await clearCartMutation.mutateAsync()
+  }, [user, openAuthModal, clearCartMutation])
 
   const isInCart = useCallback(
-    (productId: string, size?: string) => {
-      const id = makeId(productId, size)
-      return items.some(i => i.id === id)
+    (productId: string | number) => {
+      return items.some((i) => String(i.productId) === String(productId))
     },
     [items]
   )
 
-  const itemCount = items.reduce((sum, i) => sum + i.quantity, 0)
-  const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0)
-
   return (
     <CartContext.Provider
-      value={{ items, itemCount, subtotal, addToCart, removeFromCart, updateQty, clearCart, isInCart }}
+      value={{
+        items,
+        itemCount,
+        subtotal,
+        totalDiscount,
+        originalAmount,
+        shippingCharge,
+        isLoading,
+        isError,
+        cartResponse,
+        addToCart,
+        removeFromCart,
+        updateQty,
+        clearCart,
+        isInCart,
+        refetchCart: refetch,
+      }}
     >
       {children}
     </CartContext.Provider>

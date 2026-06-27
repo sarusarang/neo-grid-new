@@ -15,12 +15,10 @@ const SERVICES = [
     textColor: "#ffffff",
     accentColor: "#fcc42c",
     images: [
-      "https://images.unsplash.com/photo-1615553879069-f8c0f99acf61?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1508514177221-188b1c77eca2?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1592833159057-69de41dbec84?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&q=80&w=600&h=360",
+      "/Professional Solar Installation 600-360-01.jpg.jpeg",
+      "/Professional Solar Installation 600-360-02.jpg.jpeg",
+      "/Professional Solar Installation 600-360-03.jpg.jpeg",
+      "/Professional Solar Installation 600-360-04.jpg.jpeg",
     ],
   },
   {
@@ -32,10 +30,10 @@ const SERVICES = [
     textColor: "#011a1e",
     accentColor: "#04444c",
     images: [
-      "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=600&h=360",
+      "/Solar System Maintenance-01.jpg.jpeg",
+      "/Solar System Maintenance-02.jpg.jpeg",
+      "/Solar System Maintenance-03.jpg.jpeg",
+      "/Solar System Maintenance-04.jpg.jpeg",
     ],
   },
   {
@@ -47,10 +45,10 @@ const SERVICES = [
     textColor: "#ffffff",
     accentColor: "#fcc42c",
     images: [
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&q=80&w=600&h=360",
+      "/Solar Consultation 600-360-01.jpg.jpeg",
+      "/Solar Consultation 600-360-02.jpg.jpeg",
+      "/Solar Consultation 600-360-03.jpg.jpeg",
+      "/Solar Consultation 600-360-04.jpg.jpeg",
     ],
   },
   {
@@ -62,10 +60,10 @@ const SERVICES = [
     textColor: "#ffffff",
     accentColor: "#fcc42c",
     images: [
-      "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1614624532983-4ce03382d63d?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&q=80&w=600&h=360",
-      "https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?auto=format&fit=crop&q=80&w=600&h=360",
+      "/Battery & Storage Solutions-01.jpg.jpeg",
+      "/Battery & Storage Solutions-02.jpg.jpeg",
+      "/Battery & Storage Solutions-03.jpg.jpeg",
+      "/Battery & Storage Solutions-04.jpg.jpeg",
     ],
   },
 ]
