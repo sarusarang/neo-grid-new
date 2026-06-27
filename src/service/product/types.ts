@@ -104,3 +104,9 @@ export interface ProductDetailResponse {
   message: string;
   data: Product;
 }
+
+export interface ProductSliderResponse {
+  status?: number;
+  message: string;
+  data: Product[];
+}

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { ChevronRight } from "lucide-react"
 import type { Product } from "../../../service/product/types"
+import ProductSlider from "../ProductSlider"
 import ProductDetailGallery from "./ProductDetailGallery"
 import ProductDetailSections from "./ProductDetailSections"
 import ProductDetailSummary from "./ProductDetailSummary"
@@ -67,6 +68,14 @@ export default function ApiProductDetail({ product }: ApiProductDetailProps) {
         <ProductDetailSections product={product} />
 
       </div>
+
+      <ProductSlider
+        title="More Power"
+        accentTitle="Solutions"
+        subtitle="Browse more products from the NeoGrid catalog selected for dependable backup, clean output, and daily performance."
+        excludeProductId={product?.id}
+        className="pb-0 pt-10 sm:pt-14"
+      />
     </div>
   )
 }

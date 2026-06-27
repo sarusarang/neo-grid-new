@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetProductDetailApi, GetProductFilterCategoryApi, GetProductNavigationApi, GetProductsApi, } from "./authApi";
-import type { ProductDetailResponse, ProductFilterCategoryParams, ProductFilterCategoryResponse, ProductNavigationResponse, ProductsParams, ProductsResponse, } from "./types";
+import { GetProductDetailApi, GetProductFilterCategoryApi, GetProductNavigationApi, GetProductSliderApi, GetProductsApi, } from "./authApi";
+import type { ProductDetailResponse, ProductFilterCategoryParams, ProductFilterCategoryResponse, ProductNavigationResponse, ProductSliderResponse, ProductsParams, ProductsResponse, } from "./types";
 
 
 
@@ -67,6 +67,27 @@ export const useProducts = (params: ProductsParams = {}) => {
         
         staleTime: 2 * 60 * 1000, // 2 minutes
    
+    });
+
+};
+
+
+
+// React Query hook for product slider API
+export const useProductSlider = () => {
+
+    return useQuery<ProductSliderResponse>({
+
+        queryKey: ["product-slider"],
+
+        queryFn: async () => {
+
+            return await GetProductSliderApi();
+
+        },
+
+        staleTime: 5 * 60 * 1000, // 5 minutes
+
     });
 
 };

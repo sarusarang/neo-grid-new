@@ -4,6 +4,7 @@ import type {
     ProductFilterCategoryParams,
     ProductFilterCategoryResponse,
     ProductNavigationResponse,
+    ProductSliderResponse,
     ProductsParams,
     ProductsResponse,
 } from "./types";
@@ -43,6 +44,11 @@ export const GetProductsApi = async (
 
     const queryString = query.toString();
     return await CommonApi("GET", `/products/${queryString ? `?${queryString}` : ""}`);
+};
+
+// Get products for reusable slider sections
+export const GetProductSliderApi = async (): Promise<ProductSliderResponse> => {
+    return await CommonApi("GET", `/products/product-slider/`);
 };
 
 // Get single product detail
