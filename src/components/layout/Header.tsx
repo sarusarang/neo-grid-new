@@ -36,7 +36,11 @@ export default function Header() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
 
-  const { data: navResponse } = useProductNavigation()
+  const {
+    data: navResponse,
+    isLoading: navLoading,
+    isError: navError,
+  } = useProductNavigation()
   const departments: Department[] = navResponse?.data ?? []
 
 
@@ -130,11 +134,11 @@ export default function Header() {
         <div className="container mx-auto px-4 lg:px-8">
           <div
             className="flex items-center justify-between transition-all duration-300"
-            style={{ height: scrolled ? 64 : 72 }}
+            style={{ height: scrolled ? 66 : 72 }}
           >
             {/* Logo */}
             <Link to="/" className="shrink-0" aria-label="NeoGrid home">
-              <img src="/neo grid logo-01.png" alt="NeoGrid" className="h-9 object-contain" />
+              <img src="/neo grid logo-01.png" alt="NeoGrid" className="h-10 object-contain" />
             </Link>
 
             {/* Desktop nav */}
@@ -173,7 +177,7 @@ export default function Header() {
               >
                 <div className="absolute inset-0 w-0 bg-[#fcc42c] transition-all duration-200 ease-out group-hover:w-full" />
                 <span className="relative text-white group-hover:text-[#011a1e] transition-colors">
-                  Get a Quote
+                  Contact Us
                 </span>
               </Link>
             </div>
@@ -213,6 +217,8 @@ export default function Header() {
       <MegaMenu
         isOpen={megaMenuOpen}
         departments={departments}
+        isLoading={navLoading}
+        isError={navError}
         activeCategory={activeCategory}
         headerHeight={headerHeight}
         onHover={setActiveCategory}
@@ -225,6 +231,9 @@ export default function Header() {
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        departments={departments}
+        isLoading={navLoading}
+        isError={navError}
         user={user}
         itemCount={itemCount}
         onOpenAuth={openAuth}

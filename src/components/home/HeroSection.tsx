@@ -2,6 +2,9 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
+
+
+
 const SLIDES = [
   {
     id: 1,
@@ -26,7 +29,12 @@ const SLIDES = [
   }
 ]
 
+
+
+
 export default function HeroSection() {
+
+
   const [currentSlide, setCurrentSlide] = useState(0)
 
   // Auto-slide
@@ -37,8 +45,10 @@ export default function HeroSection() {
     return () => clearInterval(timer)
   }, [])
 
+
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % SLIDES.length)
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length)
+
 
   return (
     <section className="relative w-full h-screen min-h-[600px] max-h-[800px] overflow-hidden bg-[#011a1e] flex items-center">
@@ -57,7 +67,7 @@ export default function HeroSection() {
             className="w-full h-full object-cover"
           />
           {/* Clean dark gradient overlay without yellow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -96,7 +106,7 @@ export default function HeroSection() {
       </div>
 
       {/* Slider Controls */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 sm:flex hidden items-center gap-6 z-20">
         <button onClick={prevSlide} className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
           <ChevronLeft className="w-6 h-6" />
         </button>
@@ -113,6 +123,8 @@ export default function HeroSection() {
           <ChevronRight className="w-6 h-6" />
         </button>
       </div>
+
+
     </section>
   )
 }

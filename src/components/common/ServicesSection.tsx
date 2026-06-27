@@ -87,7 +87,7 @@ export default function ServicesSection() {
     <section className="bg-[#e8f3f4] border-b border-gray-100/5">
 
       {/* Section Header — contained */}
-      <div className="container mx-auto px-4 lg:px-8 py-16">
+      <div className="container mx-auto px-4 lg:px-8 py-8 sm:py-16">
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
 

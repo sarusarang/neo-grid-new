@@ -43,8 +43,10 @@ axiosInstance.interceptors.response.use(
     async (error: AxiosError) => {
 
         const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
+        const url = originalRequest?.url || "";
+        const isAuthCheckRoute = url.includes("/auth/check-login/") || url.includes("/auth/token/refresh/") || url.includes("/auth/login/") || url.includes("/auth/logout/");
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (error.response?.status === 401 && !originalRequest._retry && !isAuthCheckRoute) {
 
             originalRequest._retry = true;
 

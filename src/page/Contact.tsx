@@ -4,6 +4,8 @@ import { MapPin, Phone, Mail, Clock, ArrowRight, CheckCircle } from "lucide-reac
 
 
 export default function Contact() {
+
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -11,12 +13,17 @@ export default function Contact() {
     service: "",
     message: ""
   })
+
+
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,26 +35,38 @@ export default function Contact() {
     }, 5000)
   }
 
+
+
   return (
+
+
     <div className="bg-[#011a1e] text-white min-h-screen font-sans selection:bg-[#fcc42c] selection:text-[#011a1e]">
 
+
       {/* ── HERO BANNER ────────────────────────────────────────────── */}
-      <section className="relative py-20 md:py-40 overflow-hidden">
+      <section className="relative py-40 sm:py-20 md:py-40 overflow-hidden">
+
         {/* Background image banner */}
         <div className="absolute inset-0 z-0">
+
           <img
-            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=2000"
+            src="/1920-1080 contact-01.jpg.jpeg"
             alt="Contact Us Banner"
+            loading="lazy"
             className="w-full h-full object-cover opacity-40"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#011a1e]/30 via-[#011a1e]/20 to-[#011a1e]/10" />
+
+          <div className="absolute inset-0 bg-linear-to-t from-[#011a1e]/30 via-[#011a1e]/20 to-[#011a1e]/10" />
+
         </div>
+
 
         {/* Glow Effects */}
         <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#04444c] rounded-full blur-[130px] opacity-40 pointer-events-none" />
         <div className="absolute -bottom-10 right-1/4 w-96 h-96 bg-[#fcc42c]/10 rounded-full blur-[130px] opacity-20 pointer-events-none" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,6 +74,7 @@ export default function Contact() {
           >
             Contact <span className="text-[#fcc42c]">Us</span>
           </motion.h1>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,17 +83,24 @@ export default function Contact() {
           >
             Have questions about switching to solar, subsidies, or pricing? Reach out to our engineers for a custom quote or a free site assessment.
           </motion.p>
+
         </div>
+
       </section>
 
+
       {/* ── CORE CONTACT SECTION ───────────────────────────────────── */}
-      <section className="py-12 md:py-20 relative z-10">
+      <section className="py-8 sm:py-14 md:py-20 relative z-10">
+       
         <div className="container mx-auto px-4 lg:px-8">
+       
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
 
             {/* Left side: Contact details */}
             <div className="lg:col-span-5 flex flex-col justify-between gap-8">
+       
               <div>
+       
                 <motion.h2
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -82,6 +109,7 @@ export default function Contact() {
                 >
                   Our Corporate <span className="text-[#fcc42c]">Office</span>
                 </motion.h2>
+       
                 <motion.p
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -292,7 +320,7 @@ export default function Contact() {
       </section>
 
       {/* ── GOOGLE MAP EMBED SECTION ───────────────────────────────── */}
-      <section className="py-10 bg-[#011a1e] relative">
+      <section className="py-5 sm:py-10 bg-[#011a1e] relative">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="rounded-3xl overflow-hidden border border-white/10 h-[320px] md:h-[420px] relative shadow-2xl">
             {/* Custom stylized Google Map showing Manjeri location */}

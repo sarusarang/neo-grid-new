@@ -64,10 +64,8 @@ function Counter({ from, to, suffix, className }: { from: number; to: number; su
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 // CTA types for service cards
-type ServiceCta =
-  | { type: "buy"; href: string }
-  | { type: "consult"; phone: string }
-  | { type: "contact"; phone: string }
+type ServiceCta = | { type: "buy"; href: string } | { type: "consult"; phone: string } | { type: "contact"; phone: string }
+
 
 interface Service {
   icon: React.ReactNode
@@ -80,13 +78,14 @@ interface Service {
   ctaLabel: string
 }
 
+
 const SERVICES: Service[] = [
   {
     icon: <Zap className="w-8 h-8" />,
     title: "Smart Inverter & UPS",
     desc: "Next-generation lithium backup system offering smarter, longer, and safer performance for homes and businesses.",
     points: ["Li-On Inverter & UPS", "HKVA Inverter & UPS", "Hybrid Inverters", "Solar Inverter and UPS"],
-    img: "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=800",
+    img: "/what we offer-01.jpg.jpeg",
     color: "#04444c",
     cta: { type: "buy", href: "/products" },
     ctaLabel: "Buy Now!",
@@ -96,7 +95,7 @@ const SERVICES: Service[] = [
     title: "Battery Storage",
     desc: "Advanced Li-Ion battery systems store excess energy and provide reliable backup power whenever you need it.",
     points: ["Lithium Iron Phosphate", "Scalable Capacity", "Smart BMS", "Emergency Backup"],
-    img: "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?auto=format&fit=crop&q=80&w=800",
+    img: "/what we offer-02.jpg.jpeg",
     color: "#078291",
     cta: { type: "buy", href: "/products" },
     ctaLabel: "Buy Now!",
@@ -106,7 +105,7 @@ const SERVICES: Service[] = [
     title: "Solar Energy Solutions Consultancy",
     desc: "Comprehensive consultancy for smart lithium inverter, UPS, and energy backup systems designed to deliver reliable, efficient, and uninterrupted power solutions.",
     points: ["Energy Requirement Assessment", "Power Load Evaluation", "Customized Backup Solutions", "Efficiency & Cost Optimization"],
-    img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
+    img: "/what we offer-03.jpg.jpeg",
     color: "#022a30",
     cta: { type: "consult", phone: "+919846131500" },
     ctaLabel: "Get Free Consultation",
@@ -116,7 +115,7 @@ const SERVICES: Service[] = [
     title: "Solar System Installation",
     desc: "Committed to high-performance solar systems for sustainable and uninterrupted energy solutions.",
     points: ["Customized System Design", "High-Efficiency Solar Components", "Professional Installation & Integration", "Reliable Performance & Energy Savings"],
-    img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800",
+    img: "/what we offer-04.jpg.jpeg",
     color: "#04444c",
     cta: { type: "contact", phone: "+919846131500" },
     ctaLabel: "Contact Now",
@@ -126,7 +125,7 @@ const SERVICES: Service[] = [
     title: "Introducing Smart Technology",
     desc: "Advanced technology powers smarter, safer, and more reliable energy backup solutions.",
     points: ["Intelligent Power Management", "Real-Time Performance Monitoring", "Stable Voltage Regulation", "Automatic Backup Switching"],
-    img: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=800",
+    img: "/what we offer-05.jpg.jpeg",
     color: "#078291",
     cta: { type: "buy", href: "/products" },
     ctaLabel: "Buy Now!",
@@ -136,20 +135,25 @@ const SERVICES: Service[] = [
     title: "Annual Maintenance & Support",
     desc: "Comprehensive maintenance services to keep your Li-Ion inverter, UPS, and solar power systems operating at peak performance year after year.",
     points: ["Regular System Inspections", "Battery Health Monitoring", "Performance & Efficiency Reports", "24/7 Technical Support"],
-    img: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800",
+    img: "/what we offer-06.jpg.jpeg",
     color: "#022a30",
     cta: { type: "contact", phone: "+919876543210" },
     ctaLabel: "Contact Now!",
   },
 ]
 
+
+
+
 // ── SERVICE CTA BUTTON ────────────────────────────────────────────────────────
 // Same sliding-fill animation as the header's "Get a Quote" button
 function ServiceCtaButton({ service }: { service: Service }) {
+
   const { cta, ctaLabel } = service
 
   const baseClass =
     "group relative mt-6 w-full overflow-hidden rounded-xl border font-bold text-sm px-5 py-3 flex items-center justify-center gap-2 transition-colors"
+
 
   if (cta.type === "buy") {
     return (
@@ -157,12 +161,13 @@ function ServiceCtaButton({ service }: { service: Service }) {
         to={cta.href}
         className={`${baseClass} border-[#fcc42c]/60 bg-[#fcc42c]/10 text-[#fcc42c] hover:border-[#fcc42c]`}
       >
-        <div className="absolute inset-0 w-0 bg-[#fcc42c] transition-all duration-[250ms] ease-out group-hover:w-full" />
+        <div className="absolute inset-0 w-0 bg-[#fcc42c] transition-all duration-250 ease-out group-hover:w-full" />
         <ShoppingCart className="relative w-4 h-4 group-hover:text-[#011a1e] transition-colors" />
         <span className="relative group-hover:text-[#011a1e] transition-colors">{ctaLabel}</span>
       </Link>
     )
   }
+
 
   if (cta.type === "consult") {
     return (
@@ -170,12 +175,13 @@ function ServiceCtaButton({ service }: { service: Service }) {
         href={`tel:${cta.phone}`}
         className={`${baseClass} border-white/20 bg-white/5 text-white hover:border-white/40`}
       >
-        <div className="absolute inset-0 w-0 bg-white transition-all duration-[250ms] ease-out group-hover:w-full" />
+        <div className="absolute inset-0 w-0 bg-white transition-all duration-250 ease-out group-hover:w-full" />
         <MessageCircle className="relative w-4 h-4 group-hover:text-[#011a1e] transition-colors" />
         <span className="relative group-hover:text-[#011a1e] transition-colors">{ctaLabel}</span>
       </a>
     )
   }
+
 
   // type === "contact"
   return (
@@ -183,15 +189,18 @@ function ServiceCtaButton({ service }: { service: Service }) {
       href={`tel:${cta.phone}`}
       className={`${baseClass} border-[#04444c] bg-[#04444c]/20 text-white hover:border-[#04444c]`}
     >
-      <div className="absolute inset-0 w-0 bg-[#04444c] transition-all duration-[250ms] ease-out group-hover:w-full" />
+      <div className="absolute inset-0 w-0 bg-[#04444c] transition-all duration-250 ease-out group-hover:w-full" />
       <Phone className="relative w-4 h-4 group-hover:text-white transition-colors" />
       <span className="relative group-hover:text-white transition-colors">{ctaLabel}</span>
     </a>
   )
+
 }
 
 
-const PROCESS = [
+
+// Process data array
+const PROCESS: { step: string, title: string, desc: string }[] = [
   { step: "01", title: "Site Visit", desc: "We assess your roof, load, and grid connection to recommend the perfect system." },
   { step: "02", title: "Custom Design", desc: "Our engineers design a system optimized for your specific orientation and energy goals." },
   { step: "03", title: "Permits & Approvals", desc: "We handle all DISCOM approvals, net-metering applications, and subsidy paperwork." },
@@ -201,17 +210,21 @@ const PROCESS = [
 ]
 
 
-const INDUSTRIES = [
-  { name: "Residential Homes", img: "https://images.unsplash.com/photo-1508514177221-188b1c77eca2?auto=format&fit=crop&q=80&w=400" },
-  { name: "Commercial Buildings", img: "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&q=80&w=400" },
-  { name: "Agricultural Farms", img: "https://images.unsplash.com/photo-1615553879069-f8c0f99acf61?auto=format&fit=crop&q=80&w=400" },
-  { name: "Industrial Plants", img: "https://images.unsplash.com/photo-1592833159057-69de41dbec84?auto=format&fit=crop&q=80&w=400" },
-  { name: "Educational Institutes", img: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=400" },
-  { name: "Healthcare Facilities", img: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=400" },
+
+// Industry data array
+const INDUSTRIES: { name: string, img: string }[] = [
+  { name: "Residential Homes", img: "/Industries We Serve-01.jpg.jpeg" },
+  { name: "Commercial Buildings", img: "/Industries We Serve-02.jpg.jpeg" },
+  { name: "Agricultural Farms", img: "/Industries We Serve-03.jpg.jpeg" },
+  { name: "Industrial Plants", img: "/Industries We Serve-04.jpg.jpeg" },
+  { name: "Educational Institutes", img: "/Industries We Serve-05.jpg.jpeg" },
+  { name: "Healthcare Facilities", img: "/Industries We Serve-06.jpg.jpeg" },
 ]
 
 
-const WHY_US = [
+
+// Why us data array
+const WHY_US: { value: number, suffix: string, label: string }[] = [
   { value: 500, suffix: "+", label: "Projects Completed" },
   { value: 25, suffix: "yr", label: "Performance Warranty" },
   { value: 98, suffix: "%", label: "Customer Satisfaction" },
@@ -230,58 +243,49 @@ export default function Service() {
     <div className="bg-[#011a1e] text-white min-h-screen">
 
 
-      {/* ── 1. HERO ───────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16">
+      {/* ── HERO BANNER ────────────────────────────────────────────── */}
+      <section className="relative py-40 sm:py-20 md:py-32 overflow-hidden">
 
+        {/* Background image banner */}
         <div className="absolute inset-0 z-0">
 
           <img
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=2000"
+            src="/1920-1080 service-01.jpg.jpeg"
             alt="Solar"
             loading="lazy"
             className="w-full h-full object-cover opacity-40"
           />
 
-          <div className="absolute inset-0 bg-linear-to-r from-[#011a1e]/30 via-[#011a1e]/10 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#011a1e]/30 via-[#011a1e]/20 to-[#011a1e]/10" />
 
         </div>
 
+        {/* Glow Effects */}
+        <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#04444c] rounded-full blur-[130px] opacity-40 pointer-events-none" />
+        <div className="absolute -bottom-10 right-1/4 w-96 h-96 bg-[#fcc42c]/10 rounded-full blur-[130px] opacity-20 pointer-events-none" />
 
-        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-3xl"
+            className="max-w-3xl mx-auto"
           >
 
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center justify-center gap-3 mb-3">
               <div className="h-px w-10 bg-[#fcc42c]" />
               <span className="text-[#fcc42c] text-xs font-black uppercase tracking-widest">Our Services</span>
+              <div className="h-px w-10 bg-[#fcc42c]" />
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-black leading-[1.1] mb-6">
-              Smart Solution for
-              Power Backup & <br />
-              <span className="text-[#fcc42c]">Energy Solutions</span>
+            <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-none">
+              Our <span className="text-[#fcc42c]">Services</span>
             </h1>
 
-            <p className="text-gray-300 text-lg md:text-lg leading-relaxed mb-10 max-w-2xl">
+            <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
               Smart solutions delivering reliable power backup and efficient energy management everywhere.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-
-              <a href="tel:+919846131500" className="inline-flex items-center gap-3 bg-[#fcc42c] text-[#011a1e] px-8 py-4 rounded-full font-black text-lg hover:bg-white transition-colors">
-                <Phone className="w-5 h-5" /> Call Now
-              </a>
-
-              <Link to="#services" className="inline-flex items-center gap-3 border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-colors">
-                Explore Services <ArrowRight className="w-5 h-5" />
-              </Link>
-
-            </div>
 
           </motion.div>
 
@@ -291,11 +295,11 @@ export default function Service() {
 
 
       {/* ── 2. WHY US STATS ──────────────────────────────────────── */}
-      <section className="py-14 bg-[#04444c]">
+      <section className="py-5 sm:py-10 bg-[#04444c]">
 
-        <div className="container mx-auto px-4 lg:px-8">
+        <div className="container mx-auto px-2 lg:px-8">
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
 
             {WHY_US.map((item, i) => (
 
@@ -305,17 +309,17 @@ export default function Service() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="text-center"
+                className="text-center px-2"
               >
 
                 <Counter
                   from={0}
                   to={item.value}
                   suffix={item.suffix}
-                  className="text-4xl md:text-5xl font-black text-[#fcc42c] mb-2"
+                  className="text-3xl md:text-5xl font-black text-[#fcc42c] mb-2"
                 />
 
-                <p className="text-white/80 text-sm font-semibold uppercase tracking-wider">{item.label}</p>
+                <p className="text-white/80 text-xs md:text-sm font-semibold uppercase tracking-wider wrap-break-words">{item.label}</p>
 
               </motion.div>
 
@@ -330,12 +334,12 @@ export default function Service() {
 
 
       {/* ── 3. SERVICE CARDS GRID ────────────────────────────────── */}
-      <section id="services" className="py-14 bg-[#011a1e]">
+      <section id="services" className="py-8 sm:py-14 bg-[#011a1e]">
 
         <div className="container mx-auto px-4 lg:px-8">
-        
-          <div className="text-center mb-14">
-        
+
+          <div className="text-center mb-8 sm:mb-14">
+
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -344,16 +348,16 @@ export default function Service() {
             >
               What We <span className="text-[#fcc42c]">Offer</span>
             </motion.h2>
-        
+
             <p className="text-gray-400 text-lg max-w-5xl mx-auto">Unique & highly efficient solutions for  Smart Power Backup and Reliable Solar energy</p>
-        
+
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-           
+
             {SERVICES.map((service, i) => (
-           
-           <motion.div
+
+              <motion.div
                 key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -361,23 +365,23 @@ export default function Service() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="group relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 hover:border-[#fcc42c]/40 transition-all duration-500 flex flex-col"
               >
-           
+
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden">
-           
+
                   <img
                     src={service.img}
                     alt={service.title}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-           
+
                   <div className="absolute inset-0 bg-linear-to-t from-[#011a1e] to-transparent" />
-           
+
                   <div className="absolute bottom-4 left-4 p-3 rounded-xl text-white" style={{ backgroundColor: service.color }}>
                     {service.icon}
                   </div>
-           
+
                 </div>
 
                 {/* Content */}
@@ -408,11 +412,11 @@ export default function Service() {
 
 
       {/* ── 4. PROCESS STEPS ─────────────────────────────────────── */}
-      <section className="py-14 bg-[#022a30]">
+      <section className="py-8 sm:py-14 bg-[#022a30]">
 
         <div className="container mx-auto px-4 lg:px-8">
 
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 sm:mb-16">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -458,9 +462,11 @@ export default function Service() {
 
 
       {/* ── 5. INDUSTRIES WE SERVE ───────────────────────────────── */}
-      <section className="py-14 bg-[#011a1e]">
+      <section className="py-8 sm:py-14 bg-[#011a1e]">
+
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
+
+          <div className="text-center mb-8 sm:mb-16">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -472,7 +478,7 @@ export default function Service() {
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">We tailor every solution to the unique energy demands of your sector.</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {INDUSTRIES.map((ind, i) => (
               <motion.div
                 key={ind.name}
@@ -493,11 +499,17 @@ export default function Service() {
         </div>
       </section>
 
+
+
       {/* ── 6. CTA CONTACT BAND ──────────────────────────────────── */}
-      <section className="py-20 bg-[#04444c] relative overflow-hidden">
+      <section className="py-8 sm:py-20 bg-[#04444c] relative overflow-hidden">
+
         <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#fcc42c]/10 rounded-full blur-[120px] pointer-events-none" />
+
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
+
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+
             <div className="max-w-2xl">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}

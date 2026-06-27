@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom"
 import { Phone, Mail, MapPin } from "lucide-react"
 
-// ── FOOTER DATA ───────────────────────────────────────────────────────────────
 
-const FOOTER_PRODUCTS = [
-  { label: "Li-On Inverter & UPS", href: "/products" },
-  { label: "Li-On HKVA", href: "/products" },
-  { label: "Li-On Hybrid", href: "/products" },
+
+
+// ── FOOTER DATA ───────────────────────────────────────────────────────────────
+const FOOTER_PRODUCTS: { label: string, href: string }[] = [
+  { label: "SUNODAY Inverter & UPS", href: "/products" },
+  { label: "SUNODAY HKVA", href: "/products" },
+  { label: "SUNODAY Hybrid", href: "/products" },
   { label: "Solar Power", href: "/products" },
   { label: "Battery Pack", href: "/products" },
   { label: "Home Inverter & UPS", href: "/products" },
 ]
 
-const FOOTER_SERVICES = [
+const FOOTER_SERVICES: { label: string, href: string }[] = [
   { label: "Solar System Installation", href: "/service" },
   { label: "Product Installation", href: "/service" },
   { label: "AMC Request", href: "/contact" },
@@ -22,15 +24,17 @@ const FOOTER_SERVICES = [
   { label: "Business Enquiry", href: "/contact" },
 ]
 
-const FOOTER_POLICIES = [
+
+const FOOTER_POLICIES: { label: string, href: string }[] = [
   { label: "Privacy Policy", href: "#" },
   { label: "Terms & Conditions", href: "#" },
   { label: "Refund & Return Policy", href: "#" },
   { label: "Shipment Policy", href: "#" },
 ]
 
-// ── SHARED LINK LIST ──────────────────────────────────────────────────────────
 
+
+// ── SHARED LINK LIST ──────────────────────────────────────────────────────────
 function FooterLinkList({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
@@ -42,7 +46,7 @@ function FooterLinkList({ title, links }: { title: string; links: { label: strin
           <li key={link.label}>
             <Link
               to={link.href}
-              className="text-sm text-gray-400 hover:text-[#fcc42c] transition-colors hover:translate-x-0.5 inline-block transition-transform duration-150"
+              className="text-sm text-gray-400 hover:text-[#fcc42c] transition-transform hover:translate-x-0.5 inline-block transition-transform duration-150"
             >
               {link.label}
             </Link>
@@ -53,10 +57,13 @@ function FooterLinkList({ title, links }: { title: string; links: { label: strin
   )
 }
 
-// ── FOOTER ────────────────────────────────────────────────────────────────────
 
+
+// ── FOOTER ────────────────────────────────────────────────────────────────────
 export default function Footer() {
+
   return (
+
     <footer className="bg-[#000f12] text-gray-300 border-t border-white/10">
       {/* ── Main grid ──────────────────────────────────────────────────── */}
       <div className="container mx-auto px-4 lg:px-8 py-14">
@@ -64,11 +71,20 @@ export default function Footer() {
 
           {/* Brand column — spans 2 cols on lg */}
           <div className="sm:col-span-2 lg:col-span-1 flex flex-col items-start">
-            <img
-              src="/neo grid logo-01.png"
-              alt="NeoGrid"
-              className="h-11 object-contain mb-5 brightness-0 invert opacity-90"
-            />
+            <div className="flex flex-col gap-3.5 mb-3 items-start">
+              <img
+                src="/neo grid logo-01.png"
+                alt="NeoGrid"
+                loading="lazy"
+                className="h-11 w-auto object-contain invert opacity-90 brightness-0"
+              />
+              <img
+                src="/Neogrid LOGO-02.png"
+                alt="NeoGrid"
+                loading="lazy"
+                className="h-11 -ml-2 w-auto object-contain invert opacity-90 brightness-0"
+              />
+            </div>
             <p className="text-sm text-gray-500 leading-relaxed mb-6">
               Empowering homes and businesses with premium, high-efficiency power backup and solar energy solutions.
             </p>
@@ -128,15 +144,6 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-
-            {/* CTA button */}
-            <Link
-              to="/contact"
-              className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full overflow-hidden bg-[#04444c]/40 border border-[#04444c] text-sm font-bold text-white hover:border-[#fcc42c]/50 transition-colors"
-            >
-              <div className="absolute inset-0 w-0 bg-[#fcc42c] transition-all duration-[250ms] ease-out group-hover:w-full" />
-              <span className="relative group-hover:text-[#011a1e] transition-colors">Get a Quote</span>
-            </Link>
           </div>
         </div>
       </div>
