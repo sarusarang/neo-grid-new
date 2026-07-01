@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
 
 const stats = [
@@ -9,23 +9,32 @@ const stats = [
 
 function Counter({ from, to, suffix }: { from: number; to: number; suffix: string }) {
   const nodeRef = useRef<HTMLHeadingElement>(null)
+  const [count, setCount] = useState(from)
   const inView = useInView(nodeRef, { once: true, margin: "-100px" })
 
   useEffect(() => {
-    if (!inView || !nodeRef.current) return
+    if (!inView) return
+
     const controls = animate(from, to, {
       duration: 2,
       ease: "easeOut",
       onUpdate(value) {
-        if (nodeRef.current) {
-          nodeRef.current.textContent = `${Math.round(value)}${suffix}`
-        }
+        setCount(Math.round(value))
       },
     })
-    return () => controls.stop()
-  }, [from, to, inView, suffix])
 
-  return <h3 ref={nodeRef} className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-2 tracking-tighter" />
+    return () => controls.stop()
+  }, [from, to, inView])
+
+  return (
+    <h3
+      ref={nodeRef}
+      className="mb-2 min-h-10 text-2xl font-black leading-none tracking-normal text-white sm:min-h-14 sm:text-5xl md:text-6xl"
+    >
+      {count}
+      {suffix}
+    </h3>
+  )
 }
 
 // Simple local animate function
@@ -64,10 +73,10 @@ export default function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: i * 0.2 }}
-              className="flex flex-col items-center justify-center text-center px-2 sm:px-4 py-4 md:py-0"
+              className="flex min-w-0 flex-col items-center justify-center px-1 py-4 text-center sm:px-4 md:py-0"
             >
               <Counter from={0} to={stat.value} suffix={stat.suffix} />
-              <p className="text-[#fcc42c] font-medium tracking-widest uppercase text-[10px] sm:text-xs">{stat.label}</p>
+              <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#fcc42c] sm:text-xs sm:tracking-widest">{stat.label}</p>
             </motion.div>
           ))}
         </div>
