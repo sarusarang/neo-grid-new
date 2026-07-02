@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Mail, Lock, User, Eye, EyeOff, CheckCircle2, ArrowRight } from "lucide-react"
@@ -12,9 +13,15 @@ interface RegisterFormProps {
   onRegistrationSuccess: (email: string, name: string, pass: string) => void
   onSuccess: () => void
   onSwitchTab: () => void
+  onPolicyNavigate: () => void
 }
 
-export default function RegisterForm({ onRegistrationSuccess, onSuccess, onSwitchTab }: RegisterFormProps) {
+export default function RegisterForm({
+  onRegistrationSuccess,
+  onSuccess,
+  onSwitchTab,
+  onPolicyNavigate,
+}: RegisterFormProps) {
   // Auth context for register
   const { register: performRegister, isRegisterPending } = useAuth()
   const [showPw, setShowPw] = useState(false)
@@ -113,8 +120,28 @@ export default function RegisterForm({ onRegistrationSuccess, onSuccess, onSwitc
           {agreed && <CheckCircle2 className="w-2.5 h-2.5 text-[#011a1e]" />}
         </div>
         <span className="text-xs text-gray-400 leading-snug">
-          I agree to the <span className="text-[#fcc42c]">Terms</span> &amp;{" "}
-          <span className="text-[#fcc42c]">Privacy Policy</span>
+          I agree to the{" "}
+          <Link
+            to="/terms-and-conditions"
+            onClick={(event) => {
+              event.stopPropagation()
+              onPolicyNavigate()
+            }}
+            className="font-bold text-[#fcc42c] hover:underline"
+          >
+            Terms
+          </Link>{" "}
+          &amp;{" "}
+          <Link
+            to="/privacy-policy"
+            onClick={(event) => {
+              event.stopPropagation()
+              onPolicyNavigate()
+            }}
+            className="font-bold text-[#fcc42c] hover:underline"
+          >
+            Privacy Policy
+          </Link>
         </span>
       </label>
       {errors.agreed && (

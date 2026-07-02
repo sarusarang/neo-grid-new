@@ -158,12 +158,17 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "login" }: Aut
                       transition={{ duration: 0.18 }}
                     >
                       {tab === "login" ? (
-                        <LoginForm onSuccess={onClose} onSwitchTab={() => setTab("register")} />
+                        <LoginForm
+                          onSuccess={onClose}
+                          onSwitchTab={() => setTab("register")}
+                          onPolicyNavigate={onClose}
+                        />
                       ) : tab === "register" ? (
                         <RegisterForm
                           onRegistrationSuccess={handleRegistrationSuccess}
                           onSuccess={onClose}
                           onSwitchTab={() => setTab("login")}
+                          onPolicyNavigate={onClose}
                         />
                       ) : (
                         regCache && (

@@ -17,6 +17,7 @@ const Cart = lazy(() => import("./page/Cart"))
 const MyAccount = lazy(() => import("./page/MyAccount"))
 const NotFound = lazy(() => import("./page/NotFound"))
 const StoreLocator = lazy(() => import("./page/StoreLocator"))
+const PolicyPage = lazy(() => import("./page/PolicyPage"))
 
 
 // layout
@@ -64,6 +65,10 @@ function App() {
           } />
 
           <Route path="/store-locator" element={<StoreLocator />} />
+          <Route path="/privacy-policy" element={<PolicyPage slug="privacy-policy" />} />
+          <Route path="/terms-and-conditions" element={<PolicyPage slug="terms-and-conditions" />} />
+          <Route path="/return-and-refund-policy" element={<PolicyPage slug="return-and-refund-policy" />} />
+          <Route path="/shipment-policy" element={<PolicyPage slug="shipment-policy" />} />
       
         </Route>
 
@@ -84,4 +89,3 @@ function App() {
 }
 
 export default App
-

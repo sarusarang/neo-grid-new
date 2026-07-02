@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react"
@@ -12,10 +13,11 @@ import GoogleLoginButton from "./GoogleLoginButton"
 interface LoginFormProps {
   onSuccess: () => void
   onSwitchTab: () => void
+  onPolicyNavigate: () => void
 }
 
 
-export default function LoginForm({ onSuccess, onSwitchTab }: LoginFormProps) {
+export default function LoginForm({ onSuccess, onSwitchTab, onPolicyNavigate }: LoginFormProps) {
 
 
   // Auth context for login
@@ -103,6 +105,26 @@ export default function LoginForm({ onSuccess, onSwitchTab }: LoginFormProps) {
 
       {/* Reusable Google Login Component */}
       <GoogleLoginButton onSuccess={onSuccess} />
+
+      <p className="text-center text-[11px] leading-relaxed text-gray-500">
+        By continuing, you agree to the{" "}
+        <Link
+          to="/terms-and-conditions"
+          onClick={onPolicyNavigate}
+          className="font-bold text-[#fcc42c] hover:underline"
+        >
+          Terms
+        </Link>{" "}
+        and{" "}
+        <Link
+          to="/privacy-policy"
+          onClick={onPolicyNavigate}
+          className="font-bold text-[#fcc42c] hover:underline"
+        >
+          Privacy Policy
+        </Link>
+        .
+      </p>
 
 
       <p className="text-center text-xs text-gray-400">

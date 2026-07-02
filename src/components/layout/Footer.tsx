@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom"
 import { Phone, Mail, MapPin } from "lucide-react"
+import { POLICY_LINKS } from "../../data/policies"
 
 
 
 
 // ── FOOTER DATA ───────────────────────────────────────────────────────────────
 const FOOTER_PRODUCTS: { label: string, href: string }[] = [
-  { label: "SUNODAY Inverter & UPS", href: "/products" },
-  { label: "SUNODAY HKVA", href: "/products" },
-  { label: "SUNODAY Hybrid", href: "/products" },
+  { label: "SUNDAY Inverter & UPS", href: "/products" },
+  { label: "SUNDAY HKVA", href: "/products" },
+  { label: "SUNDAY Hybrid", href: "/products" },
   { label: "Solar Power", href: "/products" },
   { label: "Battery Pack", href: "/products" },
   { label: "Home Inverter & UPS", href: "/products" },
@@ -25,12 +26,7 @@ const FOOTER_SERVICES: { label: string, href: string }[] = [
 ]
 
 
-const FOOTER_POLICIES: { label: string, href: string }[] = [
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms & Conditions", href: "#" },
-  { label: "Refund & Return Policy", href: "#" },
-  { label: "Shipment Policy", href: "#" },
-]
+const FOOTER_POLICIES = POLICY_LINKS
 
 
 
@@ -46,7 +42,7 @@ function FooterLinkList({ title, links }: { title: string; links: { label: strin
           <li key={link.label}>
             <Link
               to={link.href}
-              className="text-sm text-gray-400 hover:text-[#fcc42c] transition-transform hover:translate-x-0.5 inline-block transition-transform duration-150"
+              className="text-sm text-gray-400 hover:text-[#fcc42c] hover:translate-x-0.5 inline-block transition-transform duration-150"
             >
               {link.label}
             </Link>

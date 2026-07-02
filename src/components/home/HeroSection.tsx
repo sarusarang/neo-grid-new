@@ -165,7 +165,7 @@ export default function HeroSection() {
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="mb-5 text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl md:mb-6 md:text-7xl">
+                <h1 className="mb-5 text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl md:mb-6 md:text-5xl">
                   {activeSlide.title}<br/>
                   <span className="text-[#fcc42c]">
                     {activeSlide.title_2}
